@@ -1,0 +1,301 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+    .count-comment{
+        box-sizing: border-box;
+    display: inline-block;
+    padding: 0 8px;
+    min-width: 24px;
+    height: 2em;
+    border-radius: 5px;
+    background-color: #72777c;
+    color: #fff;
+    font-size: 11px;
+    line-height: 21px;
+    text-align: center;
+    transition: all 0.3s;
+    }
+    .count-comment:after {
+    content: "";
+    display: block;
+    margin-left: 8px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid #72777c;
+    border-right: 5px solid transparent;
+}
+.btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .15) !important;
+        border: 2px solid transparent !important;
+        object-fit: cover;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>All Adminstrators <span>/ Manage Admin's</span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+        <div class="col-md-4 text-right">
+            <div class="container">
+                <a href="/dashboard/users/add-new"><button class="btn btn-info">Add New User</button></a>
+            </div>
+        </div>
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-5">
+            <div class="form-group d-flex">
+                    <select id="bulkSelect" class="form-control form-control-sm bulk">
+                            <option selected="selected" disabled="disabled">Bulk Actions</option>
+                            <option value="delete">Delete</option>
+                        </select>
+                        <button class="btn btn-info ml-3 btn-sm" onclick="document.querySelector('#bulkDeleteForm').submit();">Apply</button>
+            </div>
+        </div><!-- Page Heading End -->
+        <!-- Page Heading Start -->
+        <div class="col-md-7">
+            <form action="/dashboard/users" method="GET">
+                    <div class="input-group">
+                            <input type="search" name="q" class="form-control" placeholder="Search by username or email" aria-describedby="button-addon2" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-bsa noBorderRadius" id="button-addon2" id="search"><i class="icofont-search-2 mr-1"></i></button>
+                            </div>
+                        </div>
+            </form>
+        </div>
+
+    </div><!-- Page Headings End -->
+
+    <div class="row ">
+
+        <!--Manage Product List Start-->
+        <div class="col-12">
+            <form action method="GET" id="bulkDeleteForm">
+                <div class="table-responsive bg-white shadow-sm">
+                    <table class="table table-vertical-middle">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" name="" id="selectAll" class="">
+                                </th>
+                                <th>Avatar</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Role</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var key in allusers) { %>
+                            <tr>
+                                <td class="">
+                                    <input type="checkbox" name="ids" value="<%= allusers[key]._id %>">
+                                </td>
+                                <td>
+                                    <img src="<%= allusers[key].profilePicture %>" class="img-fluid profile-image" alt="">
+                                </td>
+                                <td class="text-capitalize" style="width: 160px;">
+                                    <a href="/dashboard/users/edit/<%= allusers[key].username %>"  data-toggle="tooltip"
+                                        data-placement="bottom" title="Edit User">
+                                        <%= allusers[key].username %>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%= allusers[key].email %>
+                                </td>
+                                <td>
+                                    <% if(allusers[key].active == true) { %>
+                                        <span class="badge badge-success">Verified</span>
+                                    <% } else { %>
+                                        <span class="badge badge-danger">Unverified</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <span class="badge badge-info"><%= allusers[key].roleId %></span>
+                                </td>
+                                <td><%= allusers[key].createdAt.toLocaleDateString() %></td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    <% if(allusers == "") { %>
+                        <div class="alert alert-primary">No User Found</div>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+        <!--Manage Product List End-->
+        <div class="container mt-4">
+            <% if (pages > 0) { %>
+            <div class="pagination-container pagination-sm">
+                <ul class="pagination">
+                    <% if (current == 1) { %>
+                    <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">First</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 3 ? Number(current) - 3 : 1) %>
+                    <% if (i !== 1) { %>
+                    <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                    </li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                    <% if (i == current) { %>
+                    <li class="diabled page-item active"><a href="javascript:void(0)" style="cursor:default;"
+                            class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                    <li class="page-item"><a href="?page=<%= i %>" class="page-link"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 2 && i < pages) { %>
+                    <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                    </li>
+                    <% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                    <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">Last</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item"><a href="?page=<%= pages %>" class="page-link">Last</a></li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <% } %>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>  
+<script>
+    $(document).ready(function() {
+  $('select').niceSelect();
+});
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#selectAll").click(function () {
+            $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+        });
+        $("select.bulk").change(function () {
+            var val = $(this).children("option:selected").val();
+            if (val == "")
+                console.log('nothing')
+            else {
+                switch (val) {
+                    case 'delete':
+                        document.querySelector('#bulkDeleteForm').setAttribute('action', '/user/dashboard/deleteMany');
+                        document.querySelector('#bulkDeleteForm').setAttribute('method', 'POST');
+                        break;
+                    default: break;
+                }
+            }
+        });
+        $('#search').click(() => {
+            let name = $('#searchByName').val();
+            let category = $('#searchByCategory :selected').val();
+            if(category == "")
+                window.alert('Pls select a category')
+            else window.location.href = `/dashboard/all-posts?name=${name}&&category=${category}`;
+        })
+    });
+</script>
+</body>
+
+</html>

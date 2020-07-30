@@ -1,0 +1,247 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    input[type=radio] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=radio]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+    a.nav-item.nav-link.active {
+        border-top: solid 2px #17a2b8 !important;
+    }
+    a.nav-item.nav-link{
+        border-radius: 0;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Settings: <span>Media Settings</span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+    <div class="bg-white shadow-sm mb-4">
+            <div class="p-3">
+                    <p><b>You can Choose to use AMAZON s3 or Cloudinary as Your back up storage so as not to loose files.</b></p>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="bg-white shadow-sm">
+                <div class="p-3">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill shadow-sm" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-amazon"></i>
+                                AWS S3</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false"><i
+                                    class="fa fa-cloud mr-1"></i> Cloudinary</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <form action="/settings/media/aws/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Access Key Id*</b></label>
+                                    <input type="text" name="media.config.amazons3.accessKeyId" class="form-control" placeholder="Access Key Id"
+                                        value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.amazons3 !== undefined){%><%= settings.media.config.amazons3.accessKeyId %><%}%><%}%>" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                        <label for=""><b>Secret Access Key*</b></label>
+                                        <input type="text" name="media.config.amazons3.secretAccessKey" class="form-control" placeholder="Secret Access key"
+                                            value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.amazons3 !== undefined){%><%= settings.media.config.amazons3.secretAccessKey %><%}%><%}%>" required>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                            <label for=""><b>Bucket Name*</b></label>
+                                            <input type="text" name="media.config.amazons3.bucket" class="form-control" placeholder="Bucket Name"
+                                                value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.amazons3 !== undefined){%><%= settings.media.config.amazons3.bucket %><%}%><%}%>" required>
+                                        </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <form action="/settings/media/cloudinary/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Cloud Name*</b></label>
+                                    <input type="text" name="media.config.cloudinary.cloud_name" class="form-control"
+                                        placeholder="Cloud Name" value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.cloudinary !== undefined){%><%= settings.media.config.cloudinary.cloud_name %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>API Key*</b></label>
+                                    <input type="text" class="form-control" name="media.config.cloudinary.api_key"
+                                        value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.cloudinary !== undefined){%><%= settings.media.config.cloudinary.api_key %><%}%><%}%>"
+                                        placeholder="API key" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>API Secret*</b></label>
+                                    <input type="text" class="form-control" name="media.config.cloudinary.api_secret"
+                                        value="<%if(settings!==null){%><%if(settings.media !== undefined && settings.media.config.cloudinary !== undefined){%><%= settings.media.config.cloudinary.api_secret %><%}%><%}%>"
+                                        placeholder="API secret" required>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="bg-white shadow-sm">
+                <div class="p-3">
+                    <b>Select Back up Storage</b>
+                    <hr>
+                    <form action="/settings/media/back-up-storage/update" method="POST">
+                        <div class="form-group mt-3">
+                            <select name="media.provider" id="" class="form-control mb-3" required>
+                                <option value="local" <%if(settings!==null){%><% if(settings.media.provider == 'local') {%> selected="selected" <% } %><%}%> >Local Storage</option>
+                                <option value="amazons3" <%if(settings!==null){%><% if(settings.media.provider == 'amazons3') {%> selected="selected" <% } %><%}%> >Amazon S3</option>
+                                <option value="cloudinary" <%if(settings!==null){%><% if(settings.media.provider == 'cloudinary') {%> selected="selected" <% } %><%}%> >Cloudinary</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button class="btn btn-bsa btn-sm">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>  
+<script>
+    $(document).ready(function() {
+  $('select').niceSelect();
+});
+</script>
+<script>
+    $(document).ready(function () {
+        $("[href]").each(function () {
+            if (this.href == window.location.href) {
+                $(this).parent().addClass("active");
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<%- include ./partials/header %>
+<style>
+	.img {
+		max-width: 100% !important;
+		object-fit: cover !important;
+		height: auto !important;
+	}
+
+	iframe {
+		width: 100%;
+	}
+
+	video {
+		width: 100%;
+		height: auto;
+	}
+
+	table {
+		max-width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		border-collapse: collapse;
+		white-space: nowrap;
+		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+		border: none;
+	}
+
+	td {
+		padding: 5px;
+	}
+
+	/* @media screen and (min-width: 435px){
+        .avatar{
+            height: 114px !important; 
+            width: 114px !important; 
+            object-fit: cover;
+        }
+    } */
+	@media screen and (max-width: 700px) {
+		.padd {
+			padding-left: 1.5rem !important;
+		}
+	}
+
+	.social-network {
+		float: right;
+	}
+
+	.social-network a:hover,
+	.top-menu a:hover,
+	.searh-toggle:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
+
+	.social-network {
+		z-index: 2;
+	}
+
+	footer .social-network {
+		margin-bottom: 1rem;
+		margin-top: -5px;
+	}
+
+	.social-network a {
+		color: rgba(0, 0, 0, 0.54);
+		border-radius: 50%;
+		font-size: 12px;
+		margin-left: 0.2rem;
+		border: 1px solid rgba(0, 0, 0, 0.34);
+		width: 26px;
+		height: 26px;
+		line-height: 25px;
+		text-align: center;
+		padding: 0;
+		display: inline-block;
+	}
+
+	.tags-wrap a {
+		background: rgba(0, 0, 0, 0.05);
+		border-radius: 3px;
+		font-size: 0.875rem;
+		padding: 6px 12px;
+		margin-right: 3px;
+		display: inline-block;
+		margin-bottom: 3px;
+	}
+	a.nav-item.nav-link.active {
+		border-top: solid 2px #87be8f !important;
+		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+	}
+
+	a.nav-item.nav-link {
+		border-radius: 0;
+	}
+</style>
+<main id="content">
+	<div class="container">
+		<div class="">
+			<div class="mb-3">
+				<h1 class="m_b_2rem" style="font-weight: 500;">
+					<%= page.name.charAt(0).toUpperCase() + page.name.substring(1) %>
+				</h1>
+			</div>
+			<div class="mb-3">
+				<img data-src="<%= page.featuredImage %>" alt="<%= page.name %>" class="blur-up img-fluid lazyload" />
+			</div>
+		</div>
+		<%- page.content %>
+	</div>
+</main>
+<%- include ./partials/footer %>

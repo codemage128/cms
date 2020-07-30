@@ -1,0 +1,253 @@
+<%- include ./partials/header %>
+<script>
+	function getmonth(data) {
+		switch (data) {
+			case 0:
+				return 'Jan';
+				break;
+			case 1:
+				return 'Feb';
+				break;
+			case 2:
+				return 'March';
+				break;
+			case 3:
+				return 'Apr';
+				break;
+			case 4:
+				return 'May';
+				break;
+			case 5:
+				return 'Jun';
+				break;
+			case 6:
+				return 'Jul';
+				break;
+			case 7:
+				return 'Aug';
+				break;
+			case 8:
+				return 'Sep';
+				break;
+			case 9:
+				return 'Oct';
+				break;
+			case 10:
+				return 'Nov';
+				break;
+			case 11:
+				return 'Dec';
+				break;
+			default:
+				break;
+		}
+	}
+</script>
+<main id="content">
+	<div class="content-widget">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="box box-author m_b_2rem">
+						<div class="post-author row-flex">
+							<div class="author-img">
+								<svg width="82" height="92" viewBox="0 0 82 92" class="fo ef mj mk ml mm ej">
+									<path
+										d="M1.58 26.29C8.86 11.67 23.78 1.65 41 1.65V.35C23.26.35 7.9 10.67.42 25.71l1.16.58zM41 1.65c17.22 0 32.14 10.02 39.42 24.64l1.16-.58C74.1 10.67 58.74.35 41 .35v1.3zm39.42 64.06C73.14 80.33 58.22 90.35 41 90.35v1.3c17.74 0 33.1-10.32 40.58-25.36l-1.16-.58zM41 90.35c-17.22 0-32.14-10.02-39.42-24.64l-1.16.58C7.9 81.33 23.26 91.65 41 91.65v-1.3z"
+									></path>
+								</svg>
+								<img
+									alt="<%= author.firstName + ' ' + author.lastName %>"
+									data-src="<%= author.profilePicture %>"
+									class="blur-up avatar lazyload"
+								/>
+							</div>
+							<div class="author-content">
+								<div class="top-author">
+									<h5 class="heading-font">
+										<a
+											href="javascript:void(0);"
+											title="<%= author.firstName + ' ' + author.lastName %>"
+											rel="author"
+											class="text-capitalize"
+											><%= author.firstName + ' ' + author.lastName %></a
+										>
+									</h5>
+								</div>
+								<% if(author.about != undefined) { %>
+								<p class="d-none d-md-block">
+									<%= author.about.charAt(0).toUpperCase() + author.about.substring(1) %>
+								</p>
+								<% } %> <% if(author.social != undefined) { %>
+								<div class="content-social-author">
+									<a
+										target="_blank"
+										class="author-social"
+										href="https://<%= author.social.facebook %>"
+										><i class="icofont-facebook"></i>
+									</a>
+									<a target="_blank" class="author-social" href="https://<%= author.social.twitter %>"
+										><i class="icofont-twitter"></i>
+									</a>
+									<a
+										target="_blank"
+										class="author-social"
+										href="https://<%= author.social.instagram %>"
+									>
+										<i class="icofont-instagram"></i>
+									</a>
+									<a
+										target="_blank"
+										class="author-social"
+										href="https://<%= author.social.pinterest %>"
+									>
+										<i class="icofont-pinterest"></i>
+									</a>
+								</div>
+							</div>
+							<% } %>
+						</div>
+					</div>
+					<h4 class="spanborder">
+						<span>Latest Posts</span>
+					</h4>
+					<% if(article == "") { %>
+					<h4>No Post for now</h4>
+					<% } %> <% for(let item of article) { %>
+					<article class="row justify-content-between mb-5 mr-0">
+						<div class="col-md-9 ">
+							<div class="align-self-center">
+								<% if(item.showPostOnSlider == true) { %>
+								<div class="capsSubtle mb-2">Editors' Pick</div>
+								<% } %>
+								<h3 class="entry-title mb-3">
+									<a href="/post/<%= item.slug %>"
+										><%= item.title.charAt(0).toUpperCase() + item.title.substring(1) %>
+									</a>
+								</h3>
+								<div class="entry-excerpt">
+									<p class="entry-tit">
+										<% if(item.short != undefined) { %> <%= item.short.charAt(0).toUpperCase() +
+										item.short.substring(1) %> <% } %>
+									</p>
+								</div>
+								<div class="entry-meta align-items-center">
+									<a href="/author/<%= item.postedBy.username %>"
+										><%= item.postedBy.firstName %> <%= item.postedBy.lastName %></a
+									>
+									in
+									<a href="/category/<%= item.category.slug %>" class="text-capitalize"
+										><%= item.category.name %></a
+									><br />
+									<span>
+										<script>
+											document.write(getmonth(parseInt('<%= item.createdAt.getMonth() %>')));
+										</script>
+										<%= item.createdAt.getDate() %></span
+									>
+									<span class="middotDivider"></span>
+									<span class="readingTime" title="<%= time(item.short) %>"
+										><%= time(item.short) %></span
+									>
+									<span class="svgIcon svgIcon--star">
+										<svg class="svgIcon-use" width="15" height="15">
+											<path
+												d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"
+											></path>
+										</svg>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 bgcover blur-up lazyload" data-bg="<%= item.file %>"></div>
+					</article>
+					<% } %> <% if (pages > 0) { %>
+					<ul class="page-numbers heading">
+						<% if (current == 1) { %>
+						<li><a class="disabled page-numbers" href="javascript:void(0);">First</a></li>
+						<% } else { %>
+						<li><a class="page-numbers" href="?page=1">First</a></li>
+						<% } %> <% var i = (Number(current) > 3 ? Number(current) - 3 : 1) %> <% if (i !== 1) { %>
+						<li><a class="disabled page-numbers" href="javascript:void(0);">...</a></li>
+						<% } %> <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %> <% if (i == current) { %>
+						<li><span aria-current="page" class="page-numbers current"><%= i %></span></li>
+						<% } else { %>
+						<li><a class="page-numbers" href="?page=<%= i %>"><%= i %></a></li>
+						<% } %> <% if (i == Number(current) + 2 && i < pages) { %>
+						<li><a class="disabled page-numbers" href="javascript:void(0);">...</a></li>
+						<% } %> <% } %> <% if (current == pages) { %>
+						<li><a class="disabled page-numbers" href="javascript:void(0);">Last</a></li>
+						<% } else { %>
+						<li><a class="page-numbers" href="?page=<%= pages %>">Last</a></li>
+						<% } %>
+					</ul>
+					<% } %>
+				</div>
+				<!--col-md-8-->
+				<div class="col-md-4 pl-md-5 sticky-sidebar">
+					<div class="sidebar-widget latest-tpl-4">
+						<h5 class="spanborder widget-title">
+							<span>Featured posts</span>
+						</h5>
+						<ol>
+							<% for(let item of featured) { %>
+							<li class="d-flex">
+								<div class="post-count">0<%= featured.indexOf(item) +1 %></div>
+								<div class="post-content">
+									<h5 class="entry-title mb-3">
+										<a href="/post/<%= item.slug %>"
+											><%= item.title.charAt(0).toUpperCase() + item.title.substring(1) %></a
+										>
+									</h5>
+									<div class="entry-meta align-items-center">
+										<a href="/author/<%= item.postedBy.username %>" class="text-capitalize"
+											><%= item.postedBy.firstName %> <%= item.postedBy.lastName %></a
+										>
+										in
+										<a href="/category/<%= item.category.slug %>" class="text-capitalize"
+											><%= item.category.name %></a
+										><br />
+										<span>
+											<script>
+												document.write(getmonth(parseInt('<%= item.createdAt.getMonth() %>')));
+											</script>
+											<%= item.createdAt.getDate() %></span
+										>
+										<span class="middotDivider"></span>
+										<span class="readingTime" title="<%= time(item.short) %>"
+											><%= time(item.short) %></span
+										>
+										<span class="svgIcon svgIcon--star">
+											<svg class="svgIcon-use" width="15" height="15">
+												<path
+													d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"
+												></path>
+											</svg>
+										</span>
+									</div>
+								</div>
+							</li>
+							<% } %>
+						</ol>
+					</div>
+				</div>
+				<!--col-md-4-->
+			</div>
+		</div>
+		<!--content-widget-->
+	</div>
+
+	<div class="content-widget">
+		<div class="container">
+			<div class="sidebar-widget ads">
+					<% if(authorFooter[0] != undefined){ %>
+						<a href="<%= authorFooter[0].url %>"><img style="width: 600px !important; height: 70px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= authorFooter[0].fileName %>" class="blur-up lazyload img-fluid"></a>
+					<% } %>
+			</div>
+			<div class="hr"></div>
+		</div>
+	</div>
+	<!--content-widget-->
+</main>
+
+<%- include ./partials/footer %>

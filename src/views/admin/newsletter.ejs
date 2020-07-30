@@ -1,0 +1,308 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Newsletter <span>/ Manage Subscribers</span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row ">
+
+        <!--Manage Product List Start-->
+        <div class="col-md-4">
+            <form action="/newsletter" method="POST">
+                <div class="table-responsive bg-white shadow-sm">
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Add Subscriber</b>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for=""><b>First Name*</b></label>
+                                <input type="text" class="form-control" placeholder="First Name" name="firstname" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for=""><b>Last Name*</b></label>
+                                <input type="text" name="lastname" class="form-control" id="slug" placeholder="Last Name" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for=""><b>Email*</b></label>
+                                <input type="email" name="email" id="" class="form-control" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group mt-4">
+                                <button class="btn btn-info">Add New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+                <div class="row justify-content-between align-items-center mb-10">
+
+                        <!-- Page Heading Start -->
+                        <div class="col-md-5">
+                            <div class="form-group d-flex">
+                                    <select id="bulkSelect" class="form-control form-control-sm bulk">
+                                            <option selected="selected" disabled="disabled">Bulk Actions</option>
+                                            <option value="delete">Delete</option>
+                                        </select>
+                                        <button class="btn btn-info ml-3 btn-sm" onclick="document.querySelector('#bulkDeleteForm').submit();">Apply</button>
+                            </div>
+                        </div><!-- Page Heading End -->
+                        <!-- Page Heading Start -->
+                        <div class="col-md-7">
+                            <form action="/dashboard/newsletter" method="GET">
+                                    <div class="input-group">
+                                            <input type="search" name="q" class="form-control" placeholder="Search By name or email" aria-describedby="button-addon2" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-bsa noBorderRadius" id="button-addon2" id="search"><i class="icofont-search-2 mr-1"></i></button>
+                                            </div>
+                                        </div>
+                            </form>
+                        </div><!-- Page Heading End -->
+                        
+                
+                    </div><!-- Page Headings End -->
+            <form action method="GET" id="bulkDeleteForm">
+                <div class="table-responsive bg-white shadow-sm">
+                    <table class="table table-vertical-middle">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" name="" id="selectAll" class="">
+                                </th>
+                                <th>Email</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var key in newsletter) { %>
+                            <tr>
+                                <td class="">
+                                    <input type="checkbox" name="ids" value="<%= newsletter[key]._id %>">
+                                </td>
+                                <td data-toggle="tooltip"
+                                data-placement="bottom" title="Edit Newsletter">
+                                    <a href="/dashboard/newsletter/edit/<%= newsletter[key].email %>">
+                                        <%= newsletter[key].email %>
+                                    </a>
+                                </td>
+                                <td>
+                                    <%= newsletter[key].firstname %>
+                                </td>
+                                <td>
+                                    <%= newsletter[key].lastname %>
+                                </td>
+                                <td><%= newsletter[key].createdAt.toLocaleDateString() %></td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class=" mt-4">
+                <% if(query == true) { %>
+                    <% if (pages > 0) { %>
+                        <div class="pagination-container pagination-sm">
+                            <ul class="pagination">
+                                <% if (current == 1) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">First</a>
+                                </li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?q=<%= search %>&&page=1" class="page-link">First</a></li>
+                                <% } %>
+                                <% var i = (Number(current) > 3 ? Number(current) - 3 : 1) %>
+                                <% if (i !== 1) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                                </li>
+                                <% } %>
+                                <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                <% if (i == current) { %>
+                                <li class="diabled page-item active"><a href="javascript:void(0)" style="cursor:default;"
+                                        class="page-link"><%= i %></a></li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?q=<%= search %>&&page=<%= i %>" class="page-link"><%= i %></a></li>
+                                <% } %>
+                                <% if (i == Number(current) + 2 && i < pages) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                                </li>
+                                <% } %>
+                                <% } %>
+                                <% if (current == pages) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">Last</a>
+                                </li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?q=<%= search %>&&page=<%= pages %>" class="page-link">Last</a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <% } %>
+                <% } else { %>
+                    <% if (pages > 0) { %>
+                        <div class="pagination-container pagination-sm">
+                            <ul class="pagination">
+                                <% if (current == 1) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">First</a>
+                                </li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                                <% } %>
+                                <% var i = (Number(current) > 3 ? Number(current) - 3 : 1) %>
+                                <% if (i !== 1) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                                </li>
+                                <% } %>
+                                <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                <% if (i == current) { %>
+                                <li class="diabled page-item active"><a href="javascript:void(0)" style="cursor:default;"
+                                        class="page-link"><%= i %></a></li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?page=<%= i %>" class="page-link"><%= i %></a></li>
+                                <% } %>
+                                <% if (i == Number(current) + 2 && i < pages) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                                </li>
+                                <% } %>
+                                <% } %>
+                                <% if (current == pages) { %>
+                                <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">Last</a>
+                                </li>
+                                <% } else { %>
+                                <li class="page-item"><a href="?page=<%= pages %>" class="page-link">Last</a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <% } %>
+                <% } %>
+                </div>
+        </div>
+        <!--Manage Product List End-->
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>  
+<script>
+    $(document).ready(function() {
+  $('select').niceSelect();
+});
+</script>
+<script>
+    $(document).ready(function () {
+        $("#selectAll").click(function () {
+            $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+        });
+        $("select.bulk").change(function () {
+            var val = $(this).children("option:selected").val();
+            if (val == "")
+                console.log('nothing')
+            else {
+                switch (val) {
+                    case 'delete':
+                        document.querySelector('#bulkDeleteForm').setAttribute('action', '/newsletter/deleteMany');
+                        document.querySelector('#bulkDeleteForm').setAttribute('method', 'POST');
+                        break;
+                    default: break;
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

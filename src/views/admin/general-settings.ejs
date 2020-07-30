@@ -1,0 +1,311 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    input[type=radio] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=radio]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+    a.nav-item.nav-link.active {
+        border-top: solid 2px #17a2b8 !important;
+    }
+    a.nav-item.nav-link{
+        border-radius: 0;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Settings: <span>General Settings</span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row">
+        <div class="col-12 ">
+            <div class="bg-white shadow-sm">
+                <div class="p-3">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill shadow-sm" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true"><i class="ti-settings"></i>
+                                General Settings</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false"><i
+                                    class="fa fa-address-card-o mr-1"></i> Contact Settings</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                                role="tab" aria-controls="nav-contact" aria-selected="false"><i class="ti-instagram"></i>
+                                Social Media Settings</a>
+                            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
+                                role="tab" aria-controls="nav-about" aria-selected="false"><i class="fa fa-code"></i>
+                                HTML Head Code</a>
+                                <a class="nav-item nav-link" id="nav-facebook-tab" data-toggle="tab" href="#nav-facebook"
+                                role="tab" aria-controls="nav-facebook" aria-selected="false"><i class="ti-facebook"></i>
+                                Facebook Comments</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <div class="row">
+                                <div class="col-12">
+                                        <form action="/settings/general/update" method="POST">
+                                            <div class="form-group mt-4">
+                                                <label for=""><b>Site Name</b></label>
+                                                <input type="text" name="siteName" class="form-control" placeholder="Site Name"
+                                                    value="<% if(settings!==null) { %> <%= settings.siteName %><%}%>" required>
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <label for=""><b>Site URL</b></label>
+                                                <input type="url" name="siteUrl" class="form-control" placeholder="Site URL" value="<% if(settings!==null) { %> <%= settings.siteUrl %><%}%>" disabled readonly required>
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <label for=""><b>Site Description</b></label>
+                                                <textarea name="siteDescription" id="" cols="30" rows="10" class="form-control"
+                                                    placeholder="Site Description"><% if(settings!==null) { %> <%= settings.siteDescription %><%}%></textarea>
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <label for=""><b>Copyright</b></label>
+                                                <input type="text" name="copyright" class="form-control" placeholder="Copyright"
+                                                    value="<%if(settings!==null){%><%= settings.copyright %><%}%>" required>
+                                            </div>
+                                            <div class="form-group mt-4">
+                                                <label for=""><b>Google Analytics Code</b></label>
+                                                <textarea name="googleAnalyticsCode" id="" cols="30" rows="10" class="form-control"
+                                                    placeholder="Google Analytics Code"><%if(settings!==null){%><%= settings.googleAnalyticsCode %><%}%></textarea>
+                                            </div>
+                                            <div class="form-group mt-4 text-right">
+                                                <button class="btn btn-bsa">Save Changes</button>
+                                            </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <form action="/settings/contact/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Contact Email</b></label>
+                                    <input type="text" name="contactInfo.email" class="form-control"
+                                        placeholder="Contact Email" value="<%if(settings!==null){%><%if(settings.contactInfo==undefined){ %><% }else{%><%= settings.contactInfo.email %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Contact Address</b></label>
+                                    <input type="text" class="form-control" name="contactInfo.address"
+                                        value="<%if(settings!==null){%><%if(settings.contactInfo==undefined){%><%}else{%><%=settings.contactInfo.address%><%}%><%}%>"
+                                        placeholder="Contact Address">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Phone Number</b></label>
+                                    <input type="text" class="form-control" name="contactInfo.phoneNumber"
+                                        value="<%if(settings!==null){%><%if(settings.contactInfo==undefined){%><%}else{%><%=settings.contactInfo.phoneNumber%><%}%><%}%>"
+                                        placeholder="Phone Number">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Contact Text</b></label>
+                                    <textarea name="contactInfo.otherInfo" id="" cols="30" rows="10"
+                                        class="form-control"><%if(settings!==null){%><%if(settings.contactInfo==undefined){%><%}else{%><%= settings.contactInfo.otherInfo%><%}%><%}%></textarea>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <form action="/settings/social/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Facebook</b></label>
+                                    <input type="text" name="socialMedia.facebook" class="form-control"
+                                        placeholder="https://facebook.com" value="<%if(settings!==null){%><%if(settings.socialMedia==undefined){%><%}else{%><%=settings.socialMedia.facebook%><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Twitter</b></label>
+                                    <input type="text" class="form-control" name="socialMedia.twitter"
+                                        value="<%if(settings!==null){%><%if(settings.socialMedia==undefined ){%><%}else{%><%=settings.socialMedia.twitter%><%}%><%}%>"
+                                        placeholder="https://twitter.com">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Instagram</b></label>
+                                    <input type="text" class="form-control" name="socialMedia.instagram"
+                                        value="<%if(settings!==null){%><%if(settings.socialMedia==undefined){%><%}else{%><%=settings.socialMedia.instagram%><%}%><%}%>"
+                                        placeholder="https://instagram.com">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Linkedin</b></label>
+                                    <input type="text" class="form-control" name="socialMedia.linkedin"
+                                        value="<%if(settings!==null){%><%if(settings.socialMedia==undefined){%><%}else{%><%=settings.socialMedia.linkedin%><%}%><%}%>"
+                                        placeholder="https://linkedin.com">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Youtube</b></label>
+                                    <input type="text" class="form-control" name="socialMedia.youtube"
+                                        value="<%if(settings!==null){%><%if(settings.socialMedia==undefined){%><%}else{%><%=settings.socialMedia.youtube%><%}%><%}%>"
+                                        placeholder="https://youtube.com">
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Pinterest</b></label>
+                                    <input type="text" class="form-control" name="socialMedia.pinterest"
+                                        value="<%if(settings!==null){%><%if(settings.socialMedia==undefined){%><%}else{%><%=settings.socialMedia.pinterest%><%}%><%}%>"
+                                        placeholder="https://pinterest.com">
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                            <form action="/settings/html-code/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>HTML Head Code</b></label>
+                                    <textarea name="htmlHeadCode" id="" cols="30" rows="10"
+                                        class="form-control"><%if(settings!==null){%><%= settings.htmlHeadCode %><%}%></textarea>
+                                </div>
+                                <div class=" form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-facebook" role="tabpanel" aria-labelledby="nav-facebook-tab">
+                            <form action="/settings/facebook-comment/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Facebook Comments Code</b></label>
+                                    <textarea name="facebookCommentCode" id="" cols="30" rows="10"
+                                        class="form-control"><%if(settings!==null){%><%= settings.facebookCommentCode %><%}%></textarea>
+                                </div>
+                                <div class=" form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $("[href]").each(function () {
+            if (this.href == window.location.href) {
+                $(this).parent().addClass("active");
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

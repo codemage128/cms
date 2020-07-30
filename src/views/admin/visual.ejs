@@ -1,0 +1,201 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .count-comment {
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 0 8px;
+        min-width: 24px;
+        height: 2em;
+        border-radius: 5px;
+        background-color: #72777c;
+        color: #fff;
+        font-size: 11px;
+        line-height: 21px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+
+    .count-comment:after {
+        content: "";
+        display: block;
+        margin-left: 8px;
+        width: 0;
+        height: 0;
+        border-top: 5px solid #72777c;
+        border-right: 5px solid transparent;
+    }
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row ">
+
+        <!--Manage Product List Start-->
+        <div class="col-12">
+                <div class="table-responsive bg-white shadow-sm p-3">
+                    <h4>Visual Settings</h4>
+                        <div class="">
+                                <form action="/settings/logo/update" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group mt-4">
+                                            <span class="badge badge-info">Logo (130x30px)</span><br>
+                                        <img src="<%= siteLogo %>" alt="" class="mt-3 img-fluid" id="siteImg">
+                                        <input type="file" name="siteLogo" id="siteLogo" style="display: none;" accept="image/*">
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <button type="button" class="btn btn-info btn-sm" id="click"><small><b>Change Logo</b></small></button> (.png, .jpg, .jpeg, .gif, .svg)
+                                        <button class="btn btn-info btn-sm"><small><b>Save changes</b></small></button>
+                                    </div>
+                                </form>
+                                <hr>
+                                <form action="/settings/favicon/update" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group mt-4">
+                                            <span class="badge badge-info">Favicon (16x16px)</span><br>
+                                        <img src="<%= favicon %>" alt="" class="mt-3 img-fluid" id="favicon2">
+                                        <input type="file" name="favicon" id="favicon" style="display: none;" accept="image/*">
+                                    </div>
+                                    <div class="form-group mt-4">
+                                            <button type="button" class="btn btn-info btn-sm" id="clickF"><small><b>Change Favicon</b></small></button> (.png)
+                                            <button class="btn btn-info btn-sm"><small><b>Save changes</b></small></button>
+                                    </div>
+                                </form>
+                            </div>
+                </div>
+        </div>
+        <!--Manage Product List End-->
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+
+<script>
+    function avatarSwitcher() {
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#siteImg').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    $("#siteLogo").on('change', function () {
+        readURL(this);
+    });
+    $('#click').click(e => {
+        $('#siteLogo').click()
+    })
+} avatarSwitcher();
+
+function avatarSwitcher2() {
+    var readURL2 = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#favicon2').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    $("#favicon").on('change', function () {
+        readURL2(this);
+    });
+    $('#clickF').click(e => {
+        $('#favicon').click()
+    })
+} avatarSwitcher2();
+</script>
+
+</body>
+
+</html>

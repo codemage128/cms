@@ -1,0 +1,336 @@
+<%- include ./partials/header %>
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .count-comment {
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 0 8px;
+        min-width: 24px;
+        height: 2em;
+        border-radius: 5px;
+        background-color: #72777c;
+        color: #fff;
+        font-size: 11px;
+        line-height: 21px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+
+    .count-comment:after {
+        content: "";
+        display: block;
+        margin-left: 8px;
+        width: 0;
+        height: 0;
+        border-top: 5px solid #72777c;
+        border-right: 5px solid transparent;
+    }
+
+    textarea {
+        border-radius: 0 !important;
+        height: 70px !important;
+        overflow-y: scroll;
+    }
+
+    input.form-control {
+        border-radius: 0 !important;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Advert Spaces</h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <!-- <div class="bg-white shadow-sm p-3">
+        <b>Select Ad Space</b>
+        <div class="mt-4">
+                <select name="location" id="" class="form-control mb-3" onchange="window.location.href = window.origin + '/dashboard/ad-spaces?location=' + this.value">
+                    <option value="header">Header</option>
+                    <option value="index(top)">Index (Top)</option>
+                    <option value="index(bottom)">Index (Bottom)</option>
+                    <option value="postDetails(top)">Post Details (Top)</option>
+                    <option value="postDetails(bottom)">Post Details (Bottom)</option>
+                    <option value="category(top)">Category (Top)</option>
+                    <option value="category(bottom)">Category (Bottom)</option>
+                    <option value="tags(top)">Tags (Top)</option>
+                    <option value="tags(bottom)">Tags (Bottom)</option>
+                    <option value="profile(top)">Profile (Top)</option>
+                    <option value="profile(bottom)">Profile (Bottom)</option>
+                    <option value="sidebar(top)">Sidebar (Top)</option>
+                    <option value="sidebar(bottom)">Sidebar (Bottom)</option>
+                </select>
+            </div>
+    </div> -->
+    <div class="bg-white shadow-sm p-3 mt-5">
+        <div class="row">
+            <div class="col-md-6 mt-3">
+                    <h4><b>Homepage Footer [600x70 Banner]</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                                <small><b>Ad Code</b></small>
+                            <div class="mt-3">
+                                    <textarea name="adCode" id="" cols="30" rows="10" class="form-control"><% if(homepageFooter[0] != undefined){ %><a href="<%= homepageFooter[0].url %>"><img src="<%= homepageFooter[0].fileName %>" style="width: 160px !important; height: 450px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= homepageFooter[0].fileName %>" class="lazyload img-fluid"></a><% } %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small><b>Create Ad Code</b></small>
+                            <form action="/advert/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="location" value="homepageFooter">
+                                    <div class="form-group mt-3">
+                                            <input type="text" class="form-control" placeholder="Ad URL" name="url" required>
+                                        </div>
+                                        <img src="" alt="" id="display" class="img-fluid mt-2 mb-2">
+                                        <div class="form-group mt-2">
+                                            <input type="file" name="fileName" id="fileImg" style="display: none;" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info1').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                            
+                                            <a class="btn btn-primary btn-sm text-white" id="selectImg">Select Image</a>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="" id="upload-file-info1" class="badge badge-success mt-2"></label>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                    <h4><b>Homepage Sidebar [160x450 Banner]</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small><b>Ad Code</b></small>
+                            <div class="mt-3">
+                                <textarea name="adCode" id="" cols="30" rows="10" class="form-control"><% if(homepageSidebar[0] != undefined){ %><a href="<%= homepageSidebar[0].url %>"><img src="<%= homepageSidebar[0].fileName %>" style="width: 160px !important; height: 450px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= homepageSidebar[0].fileName %>" class="lazyload img-fluid"></a><% } %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small><b>Create Ad Code</b></small>
+                            <form action="/advert/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="location" value="homepageSidebar">
+                                    <div class="form-group mt-3">
+                                            <input type="text" class="form-control" placeholder="Ad URL" name="url" required>
+                                        </div>
+                                        <img src="" alt="" id="display2" class="img-fluid mt-2 mb-2">
+                                        <div class="form-group mt-2">
+                                            <input type="file" name="fileName" id="fileImg2" style="display: none;" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info2').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                            <a class="btn btn-primary btn-sm text-white" id="selectImg2">Select Image</a>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="" id="upload-file-info2" class="badge badge-success mt-2"></label>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                    <h4><b>Category Footer [600x70 Banner]</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small><b>Ad Code</b></small>
+                            <div class="mt-3">
+                                <textarea name="adCode" id="" cols="30" rows="10" class="form-control"><% if(categoryFooter[0] != undefined){ %><a href="<%= categoryFooter[0].url %>"><img src="<%= categoryFooter[0].fileName %>" style="width: 160px !important; height: 450px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= categoryFooter[0].fileName %>" class="lazyload img-fluid"></a><% } %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small><b>Create Ad Code</b></small>
+                            <form action="/advert/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="location" value="categoryFooter">
+                                    <div class="form-group mt-3">
+                                            <input type="text" class="form-control" placeholder="Ad URL" name="url" required>
+                                        </div>
+                                        <img src="" alt="" id="display3" class="img-fluid mt-2 mb-2">
+                                        <div class="form-group mt-2">
+                                            <input type="file" name="fileName" id="fileImg3" style="display: none;" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info3').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                            <a class="btn btn-primary btn-sm text-white" id="selectImg3">Select Image</a>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="" id="upload-file-info3" class="badge badge-success mt-2"></label>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                    <h4><b>Author Footer [600x70 Banner]</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small><b>Ad Code</b></small>
+                            <div class="mt-3">
+                                <textarea name="adCode" id="" cols="30" rows="10" class="form-control"><% if(authorFooter[0] != undefined){ %><a href="<%= authorFooter[0].url %>"><img src="<%= authorFooter[0].fileName %>" style="width: 160px !important; height: 450px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= authorFooter[0].fileName %>" class="lazyload img-fluid"></a><% } %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small><b>Create Ad Code</b></small>
+                            <form action="/advert/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="location" value="authorFooter">
+                                    <div class="form-group mt-3">
+                                            <input type="text" class="form-control" placeholder="Ad URL" name="url" required>
+                                        </div>
+                                        <img src="" alt="" id="display4" class="img-fluid mt-2 mb-2">
+                                        <div class="form-group mt-2">
+                                            <input type="file" name="fileName" id="fileImg4" style="display: none;" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info4').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                            <a class="btn btn-primary btn-sm text-white" id="selectImg4">Select Image</a>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="" id="upload-file-info4" class="badge badge-success mt-2"></label>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                    <h4><b>Search Footer [600x70 Banner]</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <small><b>Ad Code</b></small>
+                            <div class="mt-3">
+                                <textarea name="adCode" id="" cols="30" rows="10" class="form-control"><% if(searchFooter[0] != undefined){ %><a href="<%= searchFooter[0].url %>"><img src="<%= searchFooter[0].fileName %>" style="width: 160px !important; height: 450px !important; object-fit: cover !important;" alt="<%= siteTitle %>" data-src="<%= searchFooter[0].fileName %>" class="lazyload img-fluid"></a><% } %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small><b>Create Ad Code</b></small>
+                            <form action="/advert/create" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="location" value="searchFooter">
+                                    <div class="form-group mt-3">
+                                            <input type="text" class="form-control" placeholder="Ad URL" name="url" required>
+                                        </div>
+                                        <img src="" alt="" id="display5" class="img-fluid mt-2 mb-2">
+                                        <div class="form-group mt-2">
+                                            <input type="file" name="fileName" id="fileImg5" style="display: none;" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info5').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                            <a class="btn btn-primary btn-sm text-white" id="selectImg5">Select Image</a>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="" id="upload-file-info5" class="badge badge-success mt-2"></label>
+                                        </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<script>
+        $('#selectImg').click(e => {
+        $('#fileImg').click();
+    })
+        $('#selectImg1').click(e => {
+        $('#fileImg1').click();
+    })
+
+        $('#selectImg2').click(e => {
+        $('#fileImg2').click();
+    })
+
+        $('#selectImg3').click(e => {
+        $('#fileImg3').click();
+    })
+
+        $('#selectImg4').click(e => {
+        $('#fileImg4').click();
+    })
+
+        $('#selectImg5').click(e => {
+        $('#fileImg5').click();
+    })
+</script>
+
+</body>
+
+</html>

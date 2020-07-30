@@ -1,0 +1,220 @@
+<%- include ./partials/header %>
+<link href="https://transloadit.edgly.net/releases/uppy/v0.25.2/dist/uppy.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<link rel="stylesheet" href="/css/light.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    /* @media screen and (max-width: 1365px) {
+    .file-item {
+        width: 14.2% !important;
+    } */
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+
+
+    .uppy-Dashboard-inner {
+        width: 100% !important;
+        background: #fff !important;
+    }
+
+    /* .file-list{
+        max-height: 500px;
+        overflow: auto;
+    } */
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>All Media</h3>
+            </div>
+        </div><!-- Page Heading End -->
+        <div class="col-md-8 col-lg-auto mb-20 text-right">
+            <div class="page-heading">
+                <button id="upload" class="btn btn-info">Upload</button>
+                <button id="back" class="btn btn-info">Back</button>
+            </div>
+        </div>
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row">
+
+        <!--Manage Product List Start-->
+        <div class="col-12">
+            <div class="bg-white shadow-sm" style="max-height: 100%;">
+                <div id="drag-drop-area" class="bg-white"></div>
+                <div class="row p-3 file-list">
+                    <% for(let key in media) { %>
+                    <% if(media[key].file_type.substring(0, 5) == 'image') { %>
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow-sm">
+                            <div class="card-img-top">
+                                <a href="<%= media[key].file_name %>" class="demo"
+                                    data-rel="lightcase:myCollection:slideshow">
+                                    <img src="<%= media[key].file_name %>"
+                                        style="height: 134px; overflow: hidden; width: 213px; object-fit: cover;"
+                                        alt="">
+                                </a>
+                            </div>
+                            <div class="card-footer border format" style="font-weight: bold;">
+                                <%= media[key].file_name.split('/').pop() %></div>
+                        </div>
+                    </div>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
+            <div class="mt-3">
+                <% if (pages > 0) { %>
+                <div class="pagination-container pagination-sm">
+                    <ul class="pagination">
+                        <% if (current == 1) { %>
+                        <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">First</a>
+                        </li>
+                        <% } else { %>
+                        <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                        <% } %>
+                        <% var i = (Number(current) > 3 ? Number(current) - 3 : 1) %>
+                        <% if (i !== 1) { %>
+                        <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                        </li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                        <li class="diabled page-item active"><a href="javascript:void(0)" style="cursor:default;"
+                                class="page-link"><%= i %></a></li>
+                        <% } else { %>
+                        <li class="page-item"><a href="?page=<%= i %>" class="page-link"><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 2 && i < pages) { %>
+                        <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">...</a>
+                        </li>
+                        <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                        <li class="disabled page-item"><a href="javascript:void(0);" class="page-link">Last</a>
+                        </li>
+                        <% } else { %>
+                        <li class="page-item"><a href="?page=<%= pages %>" class="page-link">Last</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <% } %>
+            </div>
+        </div>
+        <!--Manage Product List End-->
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/js/uppy.min.js"></script>
+<script src="/js/animate.js"></script>
+<script>
+    $('.demo').lightcase();
+    var uppy = Uppy.Core({ autoProceed: false })
+    uppy.use(Uppy.Dashboard, { target: '#drag-drop-area', inline: true, height: 450, showProgressDetails: true, proudlyDisplayPoweredByUppy: false })
+    uppy.use(Uppy.Webcam, { target: Uppy.Dashboard });
+    uppy.use(Uppy.XHRUpload, { endpoint: '/media/create' });
+    $('#drag-drop-area').hide();
+    $('#back').hide()
+    $('#upload').click(e => {
+        $('#drag-drop-area').fadeIn();
+        $('.file-list').fadeOut()
+        $('#upload').hide()
+        $('#back').show();
+    });
+    $('#back').click(e => {
+        $('#drag-drop-area').hide();
+        $('.file-list').fadeIn();
+        $('#upload').show();
+        $('#back').hide();
+    })
+</script>
+</body>
+
+</html>

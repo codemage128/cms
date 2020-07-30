@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dype - Installer</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,700"
+      rel="stylesheet"
+    />
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="/assets/css/vendor/font-awesome.min.css" />
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  </head>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      color: #444 !important;
+      font-size: 14px;
+
+      background: #007991; /* fallback for old browsers */
+      background: -webkit-linear-gradient(
+        to left,
+        #007991,
+        #6fe7c2
+      ); /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(
+        to left,
+        #007991,
+        #6fe7c2
+      ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .logo-cnt {
+      text-align: center;
+      color: #fff;
+      padding: 60px 0 60px 0;
+    }
+
+    .logo-cnt .logo {
+      font-size: 48px;
+      line-height: 48px;
+    }
+
+    .logo-cnt p {
+      font-size: 24px;
+    }
+
+    .install-box {
+      width: 100%;
+      padding: 30px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 4px;
+      display: block;
+      float: left;
+      margin-bottom: 100px;
+    }
+
+    .form-input {
+      box-shadow: none !important;
+      border: 1px solid #ddd;
+      height: 44px;
+      line-height: 44px;
+      padding: 0 20px;
+    }
+
+    .form-input:focus {
+      border-color: #239ca1 !important;
+    }
+
+    .btn-custom {
+      background-color: #239ca1 !important;
+      border-color: #239ca1 !important;
+      border: 0 none;
+      border-radius: 4px;
+      box-shadow: none;
+      color: #fff !important;
+      font-size: 16px;
+      font-weight: 300;
+      height: 40px;
+      line-height: 40px;
+      margin: 0;
+      min-width: 105px;
+      padding: 0 20px;
+      text-shadow: none;
+      vertical-align: middle;
+    }
+
+    .btn-custom:hover,
+    .btn-custom:active,
+    .btn-custom:focus {
+      background-color: #239ca1;
+      border-color: #239ca1;
+      opacity: 0.8;
+    }
+
+    .steps {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      margin: auto;
+      padding: 30px 0;
+    }
+
+    .step {
+      float: left;
+      display: block;
+      padding: 0 5px;
+      position: relative;
+      width: 20%;
+      text-align: center;
+    }
+
+    .step-icon {
+      background: #ddd;
+      border-radius: 50%;
+      color: #fff;
+      display: inline-block;
+      font-size: 16px;
+      height: 40px;
+      line-height: 40px;
+      margin-top: 4px;
+      width: 40px;
+      text-align: center;
+      margin: auto;
+    }
+
+    .step p {
+      color: #ccc;
+    }
+
+    .step.active p {
+      color: #239ca1;
+    }
+
+    .step.active .step-icon {
+      background: #239ca1;
+      font-size: 22px;
+      height: 48px;
+      line-height: 48px;
+      margin-top: 0;
+      width: 48px;
+    }
+
+    .step-progress {
+      background: #ddd;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: 54px;
+      width: 100%;
+    }
+
+    .step-progress-line {
+      background: #239ca1;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+
+    .step-contents {
+      float: left;
+      display: block;
+      width: 100%;
+    }
+
+    .tab-content {
+      width: 100%;
+      float: left;
+      display: block;
+    }
+
+    .tab-footer {
+      width: 100%;
+      float: left;
+      display: block;
+    }
+
+    .buttons {
+      display: block;
+      float: left;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .step-title {
+      font-size: 18px;
+      text-align: left;
+      font-weight: bold;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      margin-top: 0;
+    }
+
+    .alert {
+      text-align: center;
+    }
+
+    .alert strong {
+      font-weight: 500 !important;
+    }
+
+    .spinner {
+      margin: 0 auto;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      width: 50px;
+      height: 40px;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .spinner > div {
+      background-color: #67a168;
+      height: 100%;
+      width: 6px;
+      display: inline-block;
+
+      -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+      animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    }
+
+    .spinner .rect2 {
+      -webkit-animation-delay: -1.1s;
+      animation-delay: -1.1s;
+    }
+
+    .spinner .rect3 {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+    }
+
+    .spinner .rect4 {
+      -webkit-animation-delay: -0.9s;
+      animation-delay: -0.9s;
+    }
+
+    .spinner .rect5 {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+    }
+
+    .color-danger {
+      color: #dc3545;
+    }
+
+    .color-success {
+      color: #28a745;
+    }
+
+    .req-span {
+      display: block;
+      width: 220px;
+      float: left;
+    }
+
+    .req-span i {
+      font-size: 10px;
+      line-height: 20px;
+    }
+
+    @-webkit-keyframes sk-stretchdelay {
+      0%,
+      40%,
+      100% {
+        -webkit-transform: scaleY(0.4);
+      }
+      20% {
+        -webkit-transform: scaleY(1);
+      }
+    }
+
+    @keyframes sk-stretchdelay {
+      0%,
+      40%,
+      100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+      }
+      20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+      }
+    }
+    @media screen and (min-width: 800px) {
+      .container {
+        width: 70%;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="row m-auto text-center">
+        <div class="col-md-12 col-sm-12 col-md-offset-2">
+          <div class="row">
+            <div class="col-sm-12 logo-cnt">
+              <h1>Dype</h1>
+              <p>Welcome to the Installer</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="install-box">
+                <div class="steps d-flex justify-content-center">
+                  <div class="step-progress">
+                    <div
+                      class="step-progress-line"
+                      data-now-value="33"
+                      data-number-of-steps="3"
+                      style="width: 33%;"
+                    ></div>
+                  </div>
+                  <div class="step active">
+                    <div class="step-icon"><i class="fa fa-code"></i></div>
+                    <p>Start</p>
+                  </div>
+                  <div class="step">
+                    <div class="step-icon"><i class="fa fa-gear"></i></div>
+                    <p>Site Settings</p>
+                  </div>
+                  <div class="step">
+                    <div class="step-icon"><i class="fa fa-user"></i></div>
+                    <p>Admin</p>
+                  </div>
+                </div>
+
+                <div class="messages">
+                  <%- include ./partials/msg %>
+                </div>
+
+                <div class="step-contents">
+                  <div class="tab-1">
+                    <form action="/verify/purchase" method="post">
+                      <div class="tab-content">
+                        <div class="tab_1">
+                          <h1 class="step-title">Start</h1>
+
+                          <div class="form-group">
+                            <label for="email">License Code</label>
+                            <textarea
+                              name="code"
+                              class="form-control form-input"
+                              style="resize: vertical; height: 100px;line-height: 24px;padding: 10px;"
+                              placeholder="Enter License Code"
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="tab-footer">
+                        <button
+                          type="submit"
+                          name="btn_license_code"
+                          class="btn-custom pull-right"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

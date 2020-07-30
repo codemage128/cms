@@ -1,0 +1,219 @@
+<%- include ./partials/header %>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-12 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Author Profile</h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+
+    <div class="row mbn-50">
+
+        <!--Author Top Start-->
+        <div class="col-12 mb-50">
+            <div class="author-top">
+                <div class="inner">
+                    <div class="author-profile">
+                        <div class="image">
+                            <img src="<%= user.profilePicture %>" class="profile-pic"
+                                style="width: 130px; height: 130px; object-fit: cover;" alt="">
+                            <button class="edit"><i class="zmdi zmdi-cloud-upload"></i>Change Image</button>
+                        </div>
+                        <div class="info">
+                            <h5 class="text-capitalize"><%= user.firstname %> <%= user.lastname %></h5>
+                            <span class="text-capitalize">Role: <%= user.roleId %></span>
+                            <!-- <a href="#" class="edit"><i class="zmdi zmdi-edit"></i></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Author Top End-->
+        <!--Author Information Start-->
+        <div class="col-xlg-12 col-lg-12 col-12 mb-30">
+            <%- include ../partials/msg %>
+            <div class="box">
+                <div class="box-head">
+                    <h3 class="title">Author Information</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form action="/user/dashboard/update/info" method="POST">
+                            <div class="row row-10 mbn-20">
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Firstname</label>
+                                    <input type="text" class="form-control" name="firstName"
+                                        value="<%= user.firstName %>" required>
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Lastname</label>
+                                    <input type="text" class="form-control" name="lastName" value="<%= user.lastName %>"
+                                        required>
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" class="form-control" value="<%= user.email %>"
+                                        required>
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Username</label>
+                                    <input type="text" name="username" class="form-control" value="<%= user.username %>"
+                                        required>
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <label for="">About Me</label>
+                                    <textarea name="about" id="about" cols="30" rows="10"
+                                        class="form-control"><%= user.about %></textarea>
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <b>Social Accounts</b>
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Facebook</label>
+                                    <input type="text" name="social.facebook" class="form-control"
+                                        value="<%= user.social.facebook %>">
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Twitter</label>
+                                    <input type="text" name="social.twitter" class="form-control"
+                                        value="<%= user.social.twitter %>">
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Instagram</label>
+                                    <input type="text" name="social.instagram" class="form-control"
+                                        value="<%= user.social.instagram %>">
+                                </div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">Pinterest</label>
+                                    <input type="text" name="social.pinterest" class="form-control"
+                                        value="<%= user.social.pinterest %>">
+                                </div>
+                                <div class="col-12 mt-10 mb-20">
+                                    <input type="submit" class="button button-primary button-outline"
+                                        value="Save Changes">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Author Information End-->
+
+        <div class="col-xlg-12 col-lg-12 col-12 mb-30">
+            <div class="box">
+                <div class="box-head">
+                    <h3 class="title">Update Your Password</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form">
+                        <form action="/user/dashboard/update/password" method="POST">
+                            <div class="row row-10 mbn-20">
+
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="current">Current Password</label>
+                                    <input type="password" name="currentPassword" class="form-control" required></div>
+                                <div class="col-sm-6 col-12 mb-20">
+                                    <label for="">New Password</label>
+                                    <input type="password" name="password" class="form-control" required></div>
+
+                                <div class="col-12 mt-10 mb-20">
+                                    <input type="submit" class="button button-primary button-outline"
+                                        value="Save Changes">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <form action="/user/dashboard/update/profile-picture" method="POST" id="profilePicForm" enctype="multipart/form-data" class="d-none">
+        <input type="file" name="profilePicture" id="clickMe">
+    </form>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+</div>
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<script src="/js/elip.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+
+<!-- Plugins & Activation JS For Only This Page -->
+<script src="/assets/js/plugins/moment/moment.min.js"></script>
+
+<script>
+
+    // Avatar Switcher
+    function avatarSwitcher() {
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.profile-pic').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(() => {
+                    $('#profilePicForm').submit()
+                }, 2000)
+            }
+        };
+
+        $("#clickMe").on('change', function () {
+            readURL(this);
+        });
+        $('.edit').click(e => {
+            $('#clickMe').click()
+        })
+    } avatarSwitcher();
+</script>
+<script>
+    $(document).ready(function () {
+        $("[href]").each(function () {
+            if (this.href == window.location.href) {
+                $(this).parent().addClass("active");
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

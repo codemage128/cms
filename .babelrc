@@ -1,0 +1,6 @@
+// .babelrc
+{
+  "presets": ["@babel/preset-env"],
+  "ignore": ["src/public"],
+  "plugins": [["@babel/transform-runtime"]]
+}

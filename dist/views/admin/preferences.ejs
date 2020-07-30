@@ -1,0 +1,551 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<link rel="stylesheet" href="/css/radio.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+
+    .col-option label {
+        margin-left: 8px !important;
+        cursor: pointer !important;
+        margin-bottom: 5px;
+    }
+
+    @media screen and (max-width: 586px) {
+        .col-option {
+            margin-top: 20px !important;
+        }
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Preferences</h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row ">
+        <div class="col-12">
+            <div class="bg-white shadow-sm p-3">
+                <form action="/setting/preferences/update" method="POST">
+                        <!-- <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-12">
+                                        <label>
+                                            <b>Slider</b>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                        <label for="slider_1" class="option-label">
+                                            <input type="radio" name="slider" value="enable" class="square-purple"
+                                                id="slider_1" <% if(settings !== undefined) { %><% if(settings.slider == true){%>checked<%}%> <%}%>>
+                                            <b class="ml-2">Enable</b>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                        <label for="slider_2" class="option-label">
+                                            <input type="radio" name="slider" value="disable" class="square-purple"
+                                                id="slider_2" <% if(settings !== undefined) { %><% if(settings.slider == false){%>checked<%}%> <%}%>>
+                                            <b class="ml-2">Disable</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                    <hr> -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Registration System</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="register_1" class="option-label">
+                                    <input type="radio" name="registrationSystem" value="enable" class="square-purple"
+                                        id="register_1" <% if(settings !== undefined) { %><% if(settings.registrationSystem == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Enable</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="register_2" class="option-label">
+                                    <input type="radio" name="registrationSystem" value="disable" class="square-purple"
+                                        id="register_2" <% if(settings !== undefined) { %><% if(settings.registrationSystem == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Disable</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-12">
+                                    <label>
+                                        <b>Facebook Login</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="facebookLogin_1" class="option-label">
+                                        <input type="radio" name="facebookLogin" value="enable" class="square-purple"
+                                            id="facebookLogin_1" <% if(settings !== undefined) { %><% if(settings.facebookLogin == true){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Enable</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="facebookLogin_2" class="option-label">
+                                        <input type="radio" name="facebookLogin" value="disable" class="square-purple"
+                                            id="facebookLogin_2" <% if(settings !== undefined) { %><% if(settings.facebookLogin == false){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Disable</b></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-12">
+                                        <label>
+                                            <b>Twitter Login</b>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                        <label for="twitterLogin_1" class="option-label">
+                                            <input type="radio" name="twitterLogin" value="enable" class="square-purple"
+                                                id="twitterLogin_1" <% if(settings !== undefined) { %><% if(settings.twitterLogin == true){%>checked<%}%> <%}%>>
+                                            <b class="ml-2">Enable</b>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                        <label for="twitterLogin_2" class="option-label">
+                                            <input type="radio" name="twitterLogin" value="disable" class="square-purple"
+                                                id="twitterLogin_2" <% if(settings !== undefined) { %><% if(settings.twitterLogin == false){%>checked<%}%> <%}%>>
+                                            <b class="ml-2">Disable</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-3 col-xs-12">
+                                            <label>
+                                                <b>Google Login</b>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                            <label for="googleLogin_1" class="option-label">
+                                                <input type="radio" name="googleLogin" value="enable" class="square-purple"
+                                                    id="googleLogin_1" <% if(settings !== undefined) { %><% if(settings.googleLogin == true){%>checked<%}%> <%}%>>
+                                                <b class="ml-2">Enable</b>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                            <label for="googleLogin_2" class="option-label">
+                                                <input type="radio" name="googleLogin" value="disable" class="square-purple"
+                                                    id="googleLogin_2" <% if(settings !== undefined) { %><% if(settings.googleLogin == false){%>checked<%}%> <%}%>>
+                                                <b class="ml-2">Disable</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                    <hr>
+                    <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-12">
+                                    <label>
+                                        <b>Vkontakte Login</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="vkontakteLogin_1" class="option-label">
+                                        <input type="radio" name="vkontakteLogin" value="enable" class="square-purple"
+                                            id="vkontakte_1" <% if(settings !== undefined) { %><% if(settings.vkontakteLogin == true){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Enable</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="vkontakte_2" class="option-label">
+                                        <input type="radio" name="vkontakteLogin" value="disable" class="square-purple"
+                                            id="vkontakte_2" <% if(settings !== undefined) { %><% if(settings.vkontakteLogin == false){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Disable</b></label>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Comment System</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="comment_1" class="option-label">
+                                    <input type="radio" name="commentSystem" value="enable" class="square-purple"
+                                        id="comment_1" <% if(settings !== undefined) { %><% if(settings.commentSystem == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Enable</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="comment_2" class="option-label">
+                                    <input type="radio" name="commentSystem" value="disable" class="square-purple"
+                                        id="comment_2" <% if(settings !== undefined) { %><% if(settings.commentSystem == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Disable</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Facebook Comments</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="facebook_comment_1" class="option-label">
+                                    <input type="radio" name="facebookComment" value="enable" class="square-purple"
+                                        id="facebook_comment_1" <% if(settings !== undefined) { %><% if(settings.facebookComment == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Enable</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="facebook_comment_2" class="option-label">
+                                    <input type="radio" name="facebookComment" value="disable" class="square-purple"
+                                        id="facebook_comment_2" <% if(settings !== undefined) { %><% if(settings.facebookComment == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Disable</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Approve Comments Automatically</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approve_comment_1" class="option-label">
+                                    <input type="radio" name="approveComment" value="enable" class="square-purple"
+                                        id="approve_comment_1" <% if(settings !== undefined) { %><% if(settings.approveComment == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approve_comment_2" class="option-label">
+                                    <input type="radio" name="approveComment" value="disable" class="square-purple"
+                                        id="approve_comment_2" <% if(settings !== undefined) { %><% if(settings.approveComment == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Emoji Reactions</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="emoji_reaction_1" class="option-label">
+                                    <input type="radio" name="emojiReaction" value="enable" class="square-purple"
+                                        id="emoji_reaction_1" <% if(settings !== undefined) { %><% if(settings.emojiReaction == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Enable</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="emoji_reaction_2" class="option-label">
+                                    <input type="radio" name="emojiReaction" value="disable" class="square-purple"
+                                        id="emoji_reaction_2" <% if(settings !== undefined) { %><% if(settings.emojiReaction == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Disable</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Newsletter</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="newsletter_1" class="option-label">
+                                    <input type="radio" name="newsletter" value="enable" class="square-purple"
+                                        id="newsletter_1" <% if(settings !== undefined) { %><% if(settings.newsletter == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Enable</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="newsletter_2" class="option-label">
+                                    <input type="radio" name="newsletter" value="disable" class="square-purple"
+                                        id="newsletter_2" <% if(settings !== undefined) { %><% if(settings.newsletter == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Disable</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Show Post Author</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_author_1" class="option-label">
+                                    <input type="radio" name="showPostAuthor" value="enable" class="square-purple"
+                                        id="show_post_author_1" <% if(settings !== undefined) { %><% if(settings.showPostAuthor == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_author_2" class="option-label">
+                                    <input type="radio" name="showPostAuthor" value="disable" class="square-purple"
+                                        id="show_post_author_2" <% if(settings !== undefined) { %><% if(settings.showPostAuthor == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Show Post Date</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_date_1" class="option-label">
+                                    <input type="radio" name="showPostDate" value="enable" class="square-purple"
+                                        id="show_post_date_1" <% if(settings !== undefined) { %><% if(settings.showPostDate == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_date_2" class="option-label">
+                                    <input type="radio" name="showPostDate" value="disable" class="square-purple"
+                                        id="show_post_date_2" <% if(settings !== undefined) { %><% if(settings.showPostDate == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Show Post View Count</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_view_1" class="option-label">
+                                    <input type="radio" name="showPostViewCount" value="enable" class="square-purple"
+                                        id="show_post_view_1" <% if(settings !== undefined) { %><% if(settings.showPostViewCount == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="show_post_view_2" class="option-label">
+                                    <input type="radio" name="showPostViewCount" value="disable" class="square-purple"
+                                        id="show_post_view_2" <% if(settings !== undefined) { %><% if(settings.showPostViewCount == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Approve Added User Posts</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approveAddedUserPost_1" class="option-label">
+                                    <input type="radio" name="approveAddedUserPost" value="enable" class="square-purple"
+                                        id="approveAddedUserPost_1" <% if(settings !== undefined) { %><% if(settings.approveAddedUserPost == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approveAddedUserPost_2" class="option-label">
+                                    <input type="radio" name="approveAddedUserPost" value="disable"
+                                        class="square-purple" id="approveAddedUserPost_2" <% if(settings !== undefined) { %><% if(settings.approveAddedUserPost == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-12">
+                                <label>
+                                    <b>Approve Updated User Posts</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approveUpdatedUserPost_1" class="option-label">
+                                    <input type="radio" name="approveUpdatedUserPost" value="enable"
+                                        class="square-purple" id="approveUpdatedUserPost_1" <% if(settings !== undefined) { %><% if(settings.approveUpdatedUserPost == true){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">Yes</b>
+                                </label>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                <label for="approveUpdatedUserPost_2" class="option-label">
+                                    <input type="radio" name="approveUpdatedUserPost" value="disable"
+                                        class="square-purple" id="approveUpdatedUserPost_2" <% if(settings !== undefined) { %><% if(settings.approveUpdatedUserPost == false){%>checked<%}%> <%}%>>
+                                    <b class="ml-2">No</b></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-12">
+                                    <label>
+                                        <b>Use Site Name In Replace of logo</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="textAsIcon_1" class="option-label">
+                                        <input type="radio" name="textAsIcon" value="enable"
+                                            class="square-purple" id="textAsIcon_1" <% if(settings !== undefined) { %><% if(settings.textAsIcon == true){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Yes</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="textAsIcon_2" class="option-label">
+                                        <input type="radio" name="textAsIcon" value="disable"
+                                            class="square-purple" id="textAsIcon_2" <% if(settings !== undefined) { %><% if(settings.textAsIcon == false){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">No</b></label>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-12">
+                                    <label>
+                                        <b>Enable Auto Login <small> (Users get logged in immediately after signup).</small></b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="autoLogin_1" class="option-label">
+                                        <input type="radio" name="autoLogin" value="enable"
+                                            class="square-purple" id="autoLogin_1" <% if(settings !== undefined) { %><% if(settings.autoLogin == true){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">Yes</b>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                                    <label for="autoLogin_2" class="option-label">
+                                        <input type="radio" name="autoLogin" value="disable"
+                                            class="square-purple" id="autoLogin_2" <% if(settings !== undefined) { %><% if(settings.autoLogin == false){%>checked<%}%> <%}%>>
+                                        <b class="ml-2">No</b></label>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <div class="form-group text-right mt-4">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<script src="/js/icheck.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').niceSelect();
+        $('input[type="checkbox"].flat-orange, input[type="radio"].flat-orange').iCheck({ checkboxClass: "icheckbox_flat-orange", radioClass: "iradio_flat-orange" }); $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({ checkboxClass: "icheckbox_flat-blue", radioClass: "iradio_flat-blue" }); $('input[type="checkbox"].square-purple, input[type="radio"].square-purple').iCheck({ checkboxClass: "icheckbox_square-purple", radioClass: "iradio_square-purple", increaseArea: "20%" })
+    });
+</script>
+</body>
+
+</html>

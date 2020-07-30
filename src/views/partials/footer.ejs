@@ -1,0 +1,38 @@
+        <footer class="mt-5">
+                <div class="container">
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-md-6 copyright text-xs-center">            
+                            <% if(copyright != undefined) { %><p><%= copyright.charAt(0).toUpperCase() + copyright.substring(1) %></a></p><%}%>
+                        </div>
+                        <div class="col-md-6">           
+                            <ul class="social-network inline text-md-right text-sm-center">
+                                <li class="list-inline-item"><a href="<%= facebook %>" target="_blank"><i class="icon-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="<%= twitter %>" target="_blank"><i class="icon-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="<%= linkedin %>" target="_blank"><i class="icon-linkedin"></i></a></li>
+                                <li class="list-inline-item"><a href="<%= pinterest %>" target="_blank"><i class="icon-pinterest"></i></a></li>
+                                <li class="list-inline-item"><a href="<%= instagram %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                <li class="list-inline-item"><a href="<%= youtube %>" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>    
+                </div>
+            </footer>
+        </div> <!--#wrapper-->
+
+        <a href="#" class="back-to-top heading"><i class="icon-left-open-big"></i><span  class="d-lg-inline d-md-none">Top</span></a>
+        
+        <!--Scripts-->
+        <%- mainSettings.googleAnalyticsCode %>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
+        <script src="/js/jquery-scrolltofixed-min.js"></script>
+        <script src="/js/theia-sticky-sidebar.js"></script>
+		<script src="/js/owl-carousel.2.3.0.min.js"></script>
+        <script src="/js/sweetalert.min.js"></script>
+        <script src="/js/lazy.min.js"></script>
+        <script src="/js/lazy-hooks.min.js"></script>
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>

@@ -1,0 +1,421 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    input[type=radio] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=radio]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+    a.nav-item.nav-link.active {
+        border-top: solid 2px #17a2b8 !important;
+    }
+    a.nav-item.nav-link{
+        border-radius: 0;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Settings: <span>Email Settings</span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+    <div class="bg-white shadow-sm mb-4">
+        <div class="p-3">
+            <p><b>Note: Pls Select Your Email Engine Before Configuring Other Settings. The Default Mail Engine is
+                    Sendgrid.</b></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="bg-white shadow-sm">
+                <div class="p-3">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill shadow-sm" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true"><b><i
+                                        class="zmdi zmdi-google"></i>
+                                    Gmail</b></a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false"><b><i
+                                        class="zmdi zmdi-mail-send mr-1"></i> Sendgrid</b></a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                                role="tab" aria-controls="nav-contact" aria-selected="false"><b><i
+                                        class="fa fa-amazon"></i> AWS SES</b></a>
+                            <a class="nav-item nav-link" id="smtp" data-toggle="tab" href="#smtp-tab" role="tab"
+                                aria-controls="smtp" aria-selected="false"> <b>SMTP</b></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <form action="/settings/email/gmail/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Your Email Address*</b></label>
+                                    <input type="text" name="email.config.gmail.username" class="form-control"
+                                        placeholder="Your Email Address"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.gmail !== undefined){%><%= settings.email.config.gmail.username %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Client Id</b></label>
+                                    <input type="text" name="email.config.gmail.clientId" class="form-control"
+                                        placeholder="Client Id"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.gmail !== undefined){%><%= settings.email.config.gmail.clientId %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Client Secret</b></label>
+                                    <input type="text" name="email.config.gmail.clientSecret" class="form-control"
+                                        placeholder="Client Secret"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.gmail !== undefined){%><%= settings.email.config.gmail.clientSecret %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Refresh Token</b></label>
+                                    <input type="text" name="email.config.gmail.refreshToken" class="form-control"
+                                        placeholder="Refresh Token"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.gmail !== undefined){%><%= settings.email.config.gmail.refreshToken %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <form action="/settings/email/sendgrid/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Sendgrid Username</b></label>
+                                    <input type="text" name="email.config.sendgrid.username" class="form-control"
+                                        placeholder="Sendgrid Username"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.sendgrid !== undefined){%><%= settings.email.config.sendgrid.username %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Sendgrid Password</b></label>
+                                    <input type="text" class="form-control" name="email.config.sendgrid.password"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.sendgrid !== undefined){%><%= settings.email.config.sendgrid.password %><%}%><%}%>"
+                                        placeholder="Sendgrid Password" required>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <form action="/settings/email/aws/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Access Key ID</b></label>
+                                    <input type="text" name="email.config.aws.accessKeyId" class="form-control"
+                                        placeholder="Access Key Id"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.aws !== undefined){%><%= settings.email.config.aws.accessKeyId %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Secret Access Key</b></label>
+                                    <input type="text" class="form-control" name="email.config.aws.secretAccessKey"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.aws !== undefined){%><%= settings.email.config.aws.secretAccessKey %><%}%><%}%>"
+                                        placeholder="Secret Access Key" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Sender Email Address</b></label>
+                                    <input type="text" name="email.config.aws.email" class="form-control"
+                                        placeholder="Sender Email Address"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.aws !== undefined){%><%= settings.email.config.aws.email %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Region</b></label>
+                                    <input type="text" class="form-control" name="email.config.aws.region"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.aws !== undefined){%><%= settings.email.config.aws.region %><%}%><%}%>"
+                                        placeholder="Region" required>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="smtp-tab" role="tabpanel" aria-labelledby="smtp">
+                            <form action="/settings/email/smtp/update" method="POST">
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Server Name or Host</b></label>
+                                    <input type="text" name="email.config.smtp.host" class="form-control"
+                                        placeholder="Host"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.smtp !== undefined){%><%= settings.email.config.smtp.host %><%}%><%}%>"
+                                        required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Server Port</b></label>
+                                    <input type="text" class="form-control" name="email.config.smtp.port"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.smtp !== undefined){%><%= settings.email.config.smtp.port %><%}%><%}%>"
+                                        placeholder="Port e.g 465" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>Sender Email Address</b></label>
+                                    <input type="text" class="form-control" name="email.config.smtp.email"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.smtp !== undefined){%><%= settings.email.config.smtp.email %><%}%><%}%>"
+                                        placeholder="Sender Email Address" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>STMP Username or Email Address</b></label>
+                                    <input type="text" class="form-control" name="email.config.smtp.username"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.smtp !== undefined){%><%= settings.email.config.smtp.username %><%}%><%}%>"
+                                        placeholder="Your Webmail Email Address" required>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for=""><b>SMTP Password</b></label>
+                                    <input type="text" class="form-control" name="email.config.smtp.password"
+                                        value="<%if(settings!==null){%><%if(settings.email !== undefined && settings.email.config.smtp !== undefined){%><%= settings.email.config.smtp.password %><%}%><%}%>"
+                                        placeholder="Password" required>
+                                </div>
+                                <div class="form-group mt-4 text-right">
+                                    <button class="btn btn-bsa">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="bg-white shadow-sm">
+                <div class="p-3">
+                    <b>Select your Mail Engine</b>
+                    <form action="/settings/email-lib/update" method="POST">
+                        <div class="form-group mt-2">
+                            <select name="email.provider" id="" class="form-control mb-3" required>
+                                <option value="smtp"
+                                    <%if(settings!==null){%><% if(settings.email.provider == 'smtp') {%>
+                                    selected="selected"
+                                    <% } %><%}%>>SMTP</option>
+                                        <option value="gmail" <%if(settings!==null){%><% if(settings.email.provider == 'gmail') {%>
+                                    selected="selected"
+                                    <% } %><%}%> >GMAIL</option>
+                                        <option value="sendgrid" <%if(settings!==null){%><% if(settings.email.provider == 'sendgrid') {%>
+                                    selected="selected"
+                                    <% } %><%}%>) >Sendgrid</option>
+                                        <option value="aws" <%if(settings!==null){%><% if(settings.email.provider == 'aws') {%>
+                                    selected="selected"
+                                    <% } %><%}%> >AWS SES</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                        <button class="btn btn-bsa btn-sm">Save Changes</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+            <div class="bg-white shadow-sm">
+                <div class="p-3 mt-3">
+                    <b>Email Verification</b>
+                    <hr>
+                    <form action="/settings/email-verification/update" method="POST">
+                        <div class="form-group mt-3">
+                            <div class="d-flex">
+                                <label class=""><b></b> <input type="radio" name="emailVerification"
+                                        value="enable" class="" <%if(settings!==null){%><% if(settings.emailVerification == true) { %>
+                                    checked
+                                    <% } %><%}%> > Enable
+                                </label>
+                                <label class="ml-4"><b></b> <input type="radio" name="emailVerification"
+                                        value="diable" <%if(settings!==null){%><% if(settings.emailVerification == false) { %>
+                                    checked
+                                    <% } %><%}%> > Disable
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                                <button class="btn btn-bsa btn-sm">Save Changes</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white shadow-sm mt-3">
+                <div class="p-3">
+                    <b>Weekly Newsletters</b>
+                    <hr>
+                    <form action="/settings/weekly-newsletter/update" method="POST">
+                        <div class="form-group mt-3">
+                            <div class="d-flex">
+                                <label class=""><b></b> <input type="radio" name="sendWeeklyNewsletter"
+                                        value="enable" class="" <%if(settings!==null){%><% if(settings.sendWeeklyNewsletter == true) { %>
+                                    checked
+                                    <% } %><%}%> > Enable
+                                </label>
+                                <label class="ml-4"><b></b> <input type="radio" name="sendWeeklyNewsletter"
+                                        value="diable" <%if(settings!==null){%><% if(settings.sendWeeklyNewsletter == false) { %>
+                                    checked
+                                    <% } %><%}%> > Disable
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                                <button class="btn btn-bsa btn-sm">Save Changes</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="bg-white shadow-sm mt-3">
+                <div class="p-3">
+                    <b>Send Contact Messages to Email</b>
+                    <hr>
+                    <form action="/settings/contact-to-email/update" method="POST">
+                        <div class="form-group mt-3">
+                            <div class="d-flex">
+                                <label class=""><b></b> <input type="radio" name="sendContactToEmail"
+                                        value="enable" class="" <%if(settings!==null){%><% if(settings.sendContactToEmail == true) { %>
+                                    checked
+                                    <% } %><%}%> > Yes
+                                </label>
+                                <label class="ml-4"><b></b> <input type="radio" name="sendContactToEmail"
+                                        value="diable" <%if(settings!==null){%><% if(settings.sendContactToEmail == false) { %>
+                                    checked <% } %><%}%> > No
+                                </label>
+                            </div>
+                            <div class="form-group mt-3">
+                                <small>Email (Contact messages will be sent to this email.)</small>
+                                <input type="email" name="emailForContact" value="<%if(settings!==null){%><%= settings.emailForContact %><%}%>" id="" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group mt-3">
+                                <button class="btn btn-bsa btn-sm">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+                        </div>
+
+                </div>
+            </div><!-- Footer Section End -->
+
+            <!-- JS
+============================================ -->
+
+            <!-- Global Vendor, plugins & Activation JS -->
+            <script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+            <script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+            <script src="/assets/js/vendor/popper.min.js"></script>
+            <script src="/assets/js/vendor/bootstrap.min.js"></script>
+            <!--Plugins JS-->
+            <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+            <script src="/assets/js/plugins/tippy4.min.js.js"></script>
+            <!--Main JS-->
+            <script src="/assets/js/main.js"></script>
+            <script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>  
+<script>
+    $(document).ready(function() {
+  $('select').niceSelect();
+});
+</script>
+            <script>
+                $(document).ready(function () {
+                    $("[href]").each(function () {
+                        if (this.href == window.location.href) {
+                            $(this).parent().addClass("active");
+                        }
+                    });
+                });
+            </script>
+            </body>
+
+            </html>

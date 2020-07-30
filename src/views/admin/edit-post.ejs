@@ -1,0 +1,346 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<link rel="stylesheet" href="/css/tags.css">
+<link rel="stylesheet" href="/css/upload.css">
+<style>
+    label.adomx-switch{
+        font-size: 12px;
+    }
+</style>
+<script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-12 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Edit Post: <%= article.title %> <span></span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+        <div class="col-12 col-lg-auto mb-20 text-right">
+            <div class="page-heading">
+                <a href="/post/<%= article.slug %>" target="_blank"><button class="btn btn-info">View Post</button></a>
+            </div>
+        </div>
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+    <form action="/article/edit" method="POST">
+        <input type="hidden" name="postType" value="post">
+        <input type="hidden" name="articleId" value="<%= article._id %>">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-header">
+                        <b>News Content</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="">Title</label>
+                            <input type="text" name="title" placeholder="Post Title" class="form-control" id="title"
+                                value="<%= article.title %>" required>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for=""><b>Slug</b></label>
+                            <input type="text" name="slug" placeholder="Slug" class="form-control" id="slug"
+                                value="<%= article.slug %>" required>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for=""><b>Summary & Description (Meta Tag)</b></label>
+                            <textarea name="summary" id="summary" cols="30" rows="5" class="form-control"
+                                placeholder="Summary & Description (Meta Tag)"><%= article.summary %></textarea>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for=""><b>Keywords (Meta Tag)</b></label>
+                            <input type="text" name="keywords" class="form-control" id="keywords"
+                                placeholder="Keywords (Meta Tag)" value="<%= article.keywords %>">
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="">Category</label>
+                            <select name="category" id="category" class="form-control mb-4" required>
+                                <option selected="selected" value="<%= article.category._id %>"><%= article.category.name %></option>
+                                <% for(let key in category2) { %>
+                                <option value="<%= category2[key]._id %>"><%= category2[key].name %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="form-group mt-4">
+                                <label for=""><b>Sub-Category</b></label>
+                                <select name="subCategory" id="subCategory" class="form-control mb-4" required>
+                                    <option selected="selected" disabled="disabled">-- Select a Sub-Category --</option>
+                                    <% for(let key in subCategory) { %>
+                                    <option value="<%= subCategory[key]._id %>"><%= subCategory[key].name %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        <input type="hidden" name="file" value="<%= article.file %>" id="image">
+                        <div class="form-group mt-4">
+                            <label for="">Content</label>
+                            <textarea name="body" id="body" cols="30" rows="20"><%- article.body %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 media-margin">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-header">
+                        <b>Publish</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label><input type="radio" name="status" value="activate"> Update
+                            </label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label><input type="radio" name="status" value="deactivate"> Draft
+                            </label>
+                        </div>
+                        <div class="form-group mt-4">
+                            <button class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-white shadow-sm mt-4">
+                    <div class="card-header">
+                        <b>Options</b>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <b><label class="adomx-switch"><input type="checkbox" name="addToFeatured" <% if(article.addToFeatured == true){ %>checked<%}%> > <i class="lever"></i> <span class="text">Add to Featured</span></label></b>
+                        </div>
+                        <hr>
+                        <div>
+                            <b><label class="adomx-switch"><input type="checkbox" name="addToBreaking" <% if(article.addToBreaking == true){ %>checked<%}%>> <i class="lever"></i> <span class="text">Add to Breaking</span></label></b>
+                        </div>
+                        <hr>
+                        <div>
+                            <b><label class="adomx-switch"><input type="checkbox" name="showPostOnSlider" <% if(article.showPostOnSlider == true){ %>checked<%}%>> <i class="lever"></i> <span class="text">Add to Editor's Pick</span></label></b>
+                        </div>
+                        <hr>
+                        <div>
+                            <b><label class="adomx-switch"><input type="checkbox" name="addToRecommended" <% if(article.addToRecommended == true){ %>checked<%}%>> <i class="lever"></i> <span class="text">Add to Recommended</span></label></b>
+                        </div>
+                        <hr>
+                        <div>
+                            <b><label class="adomx-switch"><input type="checkbox" name="showOnlyToRegisteredUsers"<% if(article.showOnlyToRegisteredUsers == true){ %>checked<%}%> > <i class="lever"></i> <span class="text">Show only to Registered Users</span></label></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-white shadow-sm mt-4">
+                    <div class="card-header">
+                        <b>Featured Image</b>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="<%= article.file %>" alt="" class="img-fluid"
+                                        style="border: 1px solid rgba(195, 207, 216, 0.3);" id="imgBox">
+                                    <a class="btn btn-primary btn-sm text-white" style="margin-top: -25px;"
+                                        onclick="uploadImages()">Upload Image</a>
+                        </div>
+                    </div>
+                    <div class="card bg-white shadow-sm mt-4">
+                        <div class="card-header">
+                            <b>Tags</b>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="">Enter Tags</label>
+                                <input type="text" name="tags" class="form-control"
+                                    placeholder="Nodejs, Angular.js, React.js" value="<%= article.tags %>" id="tags"
+                                    >
+                                <small>(Type tag and hit enter)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<div id="cdn-browser-modal" class="modal fade" style="z-index: 9999;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak>
+                <div class="files-nav flex-shrink-0">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-left d-flex align-items-center">
+                            <div class="filter-item">
+                                <input type="text" placeholder="Search file name...." class="form-control"
+                                    v-model="filter.s" @keyup.enter="filter.page = 1;reloadLists()">
+                            </div>
+                            <div class="filter-item">
+                                <button class="btn btn-default" @click="filter.page = 1;reloadLists()">
+                                    <i class="fa fa-search"></i> Search</button>
+                            </div>
+                            <div class="filter-item">
+                                <small><i>Total: {{total}} files</i></small>
+                            </div>
+                        </div>
+                        <div class="col-right">
+                            <i class="fa-spin fa fa-spinner icon-loading"></i>
+                            <button class="btn btn-success btn-pick-files">
+                                <span><i class="fa fa-upload"></i> Upload</span>
+                                <input multiple type="file" name="files[]" ref="files">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="upload-new" v-show="showUploader" display="none">
+                    <input type="file" name="filepond[]" class="my-pond">
+                </div>
+                <div class="files-list">
+                    <div class="files-wraps " :class="'view-'+viewType">
+                        <file-item v-for="(file,index) in files" :key="index" :view-type="viewType" :selected="selected"
+                            :file="file" v-on:select-file="selectFile"></file-item>
+                    </div>
+                    <p class="no-files-text text-center" v-show="!total && apiFinished" style="display: none">No file
+                        found</p>
+                    <div class="text-center" v-if="totalPage > 1">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item" :class="{disabled:filter.page <= 1}">
+                                    <a class="page-link" v-if="filter.page <=1">Previous</a>
+                                    <a class="page-link" href="#" v-if="filter.page > 1"
+                                        v-on:click="changePage(filter.page-1,$event)">Previous</a>
+                                </li>
+                                <li class="page-item" v-if="p >= (filter.page-3) && p <= (filter.page+3)"
+                                    :class="{active: p == filter.page}" v-for="p in totalPage"
+                                    @click="changePage(p,$event)">
+                                    <a class="page-link" href="#">{{p}}</a></li>
+                                <li class="page-item" :class="{disabled:filter.page >= totalPage}">
+                                    <a v-if="filter.page >= totalPage" class="page-link">Next</a>
+                                    <a href="#" class="page-link" v-if="filter.page < totalPage"
+                                        v-on:click="changePage(filter.page+1,$event)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="browser-actions d-flex justify-content-between flex-shrink-0" v-if="selected.length">
+                    <div class="col-left" v-show="selected.length">
+                        <div v-if="selected && selected.length">
+                            <div class="count-selected">{{selected.length}} file selected</div>
+                            <div class="clear-selected" @click="selected=[]"><i>unselect</i></div>
+                        </div>
+                    </div>
+                    <div class="col-right" v-show="selected.length">
+                        <button class="btn btn-success" :class="{disabled:!selected.length}" @click="sendFiles">Use
+                            file</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/x-template" id="file-item-template">
+    <div class="file-item" :class="fileClass(file)">
+        <div class="inner" :class="{active:selected.indexOf(file._id) !== -1 }" @click="selectFile(file)" :title="file.file_name.split('/').pop()">
+            <div class="file-thumb" v-if="viewType=='grid'" v-html="getFileThumb(file)">
+            </div>
+            <div class="file-name">{{file.file_name.split('/').pop().split('.').shift()}}</div>
+            <span class="file-checked-status" v-show="selected.indexOf(file._id) !== -1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M186.301 339.893L96 249.461l-32 30.507L186.301 402 448 140.506 416 110z"/></svg>
+            </span>
+        </div>
+    </div>
+</script>
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/tags.min.js"></script>
+<script src="/js/upload.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').niceSelect();
+        $("#tags").tagsInput({ width: "auto" })
+    });
+
+    function uploadImages() {
+        uploaderModal.show({
+            multiple: false,
+            file_type: 'image',
+            onSelect: function onSelect(files) {
+                if (files.length) {
+                    document.querySelector('#image').setAttribute('value', files[0].file_name);
+                    document.querySelector('#imgBox').setAttribute('src', files[0].file_name)
+                };
+            }
+        });
+    }
+</script>
+<script>
+    tinymce.init({
+        selector: '#body',
+        plugins: 'image code print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
+        toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media code  | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
+        image_advtab: true,
+        image_caption: true,
+        relative_urls: false,
+        remove_script_host: false,
+        convert_urls: true,
+        //images_upload_url: '/media/create', 
+        file_picker_callback: function file_picker_callback(callback, value, meta) {
+            /* Provide file and text for the link dialog */
+            if (meta.filetype === 'file') {
+                uploaderModal.show({
+                    multiple: false,
+                    file_type: 'video',
+                    onSelect: function onSelect(files) {
+                        if (files.length) callback(files[0].file_name);
+                    }
+                });
+            }
+            if (meta.filetype === 'image') {
+                uploaderModal.show({
+                    multiple: false,
+                    file_type: 'image',
+                    onSelect: function onSelect(files) {
+                        if (files.length) callback(files[0].file_name);
+                    }
+                });
+            }
+            if (meta.filetype === 'media') {
+                uploaderModal.show({
+                    multiple: false,
+                    file_type: 'video',
+                    onSelect: function onSelect(files) {
+                        if (files.length) callback(files[0].file_name);
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

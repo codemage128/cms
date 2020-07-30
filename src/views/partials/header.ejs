@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Meta tags -->
+		<title><%= siteTitle %></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="<%= siteDescription %>" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-TileImage" content="<%= siteLogo %>" />
+		<meta name="theme-color" content="#ffffff" />
+		<link rel="canonical" href="<%= siteLink %>" />
+		<link rel="alternate" href="/" hreflang="en-US" />
+		<link rel="shortcut icon" href="<%= favicon %>" type="image/x-icon">
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "<%= siteTitle %>",
+				"url": "<%= siteLink %>",
+				"description": "<%= siteDescription %>",
+				"image": "<%= siteLogo %>"
+			}
+		</script>
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="<%= siteTitle %>" />
+		<meta property="og:url" content="<%= siteLink %>" />
+		<meta property="og:image" content="<%= siteLogo %>" />
+		<meta property="og:description" content="<%= siteDescription %>" />
+		<meta property="og:site_name" content="<%= siteTitle %>" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@<%= siteTitle %>" />
+		<meta name="twitter:creator" content="@<%= siteTitle %>" />
+		<meta name="twitter:title" content="<%= siteTitle %>" />
+		<meta name="twitter:description" content="<%= siteDescription %>" />
+		<meta name="twitter:image" content="<%= siteLogo %>" />
+		<meta name="twitter:domain" content="<%= siteLink %>" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-TileImage" content="<%= siteLogo %>" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<!-- Bootstrap, Font Awesome, Aminate, Owl Carausel, Normalize CSS -->
+		<link href="/css/bootstrap.css" rel="stylesheet" />
+		<link href="/css/owl.carousel.min.css" rel="stylesheet" />
+		<link href="/css/owl.theme.default.min.css" rel="stylesheet" />
+
+		<!-- Site CSS -->
+		<link href="/css/style.css" rel="stylesheet" />
+		<link href="/css/widgets.css" rel="stylesheet" />
+		<link href="/css/color-default.css" rel="stylesheet" />
+		<link href="/css/responsive.css" rel="stylesheet" />
+		<link href="/icofont/icofont.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/assets/css/vendor/font-awesome.min.css">
+		<!-- Google fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Cabin:400,700&amp;display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=B612+Mono&amp;display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;display=swap" rel="stylesheet" />
+
+		<!-- Icons fonts-->
+		<link href="/css/fontello.css" rel="stylesheet" />
+		<%- mainSettings.htmlHeadCode %>
+	</head>
+	<body class="single">
+		<div class="top-scroll-bar"></div>
+		<!--Mobile navigation-->
+		<div class="sticky-header fixed d-lg-none d-md-block">
+			<div class="text-right">
+				<div class="container mobile-menu-fixed pr-5">
+					<% if(mainSettings.textAsIcon == true) { %>
+					<h1 class="logo-small navbar-brand">
+						<a href="/" class="logo text-capitalize"><%= siteTitle %></a>
+					</h1>
+					<% }else { %>
+					<h1 class="logo-small navbar-brand">
+						<a href="/" class="logo text-capitalize">
+							<img data-src="<%= siteLogo %>" class="blur-up lazyload" alt="<%= siteTitle %>" />
+						</a>
+					</h1>
+					<% } %> <% if(user) { %>
+					<a class="author-avatar" href="/author/<%= user.username %>">
+						<div class="u-relative u-inlineBlock u-flex0">
+							<img
+								data-src="<%= user.profilePicture %>"
+								class="avatar-image avatar-image--smaller blur-up lazyload"
+								data-toggle="tooltip"
+								data-placement="bottom"
+								title=""
+								data-original-title="My Profile"
+							/>
+							<div
+								class="avatar-halo u-absolute u-textColorGreenNormal svgIcon"
+								style="width: calc(100% + 10px); height: calc(100% + 10px); top:-5px; left:-5px"
+							>
+								<svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M5.53538374,19.9430227 C11.180401,8.78497536 22.6271155,1.6 35.3571429,1.6 C48.0871702,1.6 59.5338847,8.78497536 65.178902,19.9430227 L66.2496695,19.401306 C60.4023065,7.84329843 48.5440457,0.4 35.3571429,0.4 C22.17024,0.4 10.3119792,7.84329843 4.46461626,19.401306 L5.53538374,19.9430227 Z"
+									></path>
+									<path
+										d="M65.178902,49.9077131 C59.5338847,61.0657604 48.0871702,68.2507358 35.3571429,68.2507358 C22.6271155,68.2507358 11.180401,61.0657604 5.53538374,49.9077131 L4.46461626,50.4494298 C10.3119792,62.0074373 22.17024,69.4507358 35.3571429,69.4507358 C48.5440457,69.4507358 60.4023065,62.0074373 66.2496695,50.4494298 L65.178902,49.9077131 Z"
+									></path>
+								</svg>
+							</div></div
+					></a>
+					<% } %>
+
+					<a href="javascript:void(0)" class="menu-toggle-icon">
+						<span class="lines"></span>
+					</a>
+				</div>
+			</div>
+
+			<div class="mobi-menu">
+				<div class="mobi-menu__logo">
+					<h1 class="logo navbar-brand"><a href="/" class="logo text-capitalize">
+						<% if(mainSettings.textAsIcon) { %>
+							<%= siteTitle %>
+						<% } else { %>
+							<img data-src="<%= siteLogo %>" class="img-fluid blur-up lazyload">
+						<% } %>
+					</a></h1>
+				</div>
+				<form action="/search" method="get" class="menu-search-form d-lg-flex">
+					<input type="text" class="search_field" placeholder="Search..." value="" name="q" />
+				</form>
+				<nav>
+					<ul>
+					<% for(let item of mainMenu) { %>
+						<li class=""><a href="<%= item.link %>"><%= item.name.charAt(0).toUpperCase() + item.name.substring(1) %></a></li>
+					<% } %>
+					<% if(user) { %>
+									<% if(user.roleId == 'admin') { %>
+										<li class=""><a href="/dashboard/index">Dashboard</a></li>
+									<% } else { %>
+									<li class=""><a href="/user/dashboard">Dashboard</a></li>
+									<% } %>
+								<% } else { %>
+									<li class=""><a href="/sign-up">Sign up</a></li>
+									<li class=""><a href="/login">Login</a></li>
+									<% } %>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!--Mobile navigation-->
+		<div id="wrapper" style="overflow: hidden;">
+			<header id="header" class="d-lg-block d-none">
+				<div class="container">
+					<div class="align-items-center w-100">
+						<h1 class="logo float-left navbar-brand">
+							<a href="/" class="logo">
+								<% if(mainSettings.textAsIcon == true) { %> <%= siteTitle %> <% } else { %>
+								<img data-src="<%= siteLogo %>" class="blur-up lazyload" alt="<%= siteTitle %>" />
+								<%}%>
+							</a>
+						</h1>
+						<div class="header-right float-right w-50">
+							<div class="d-inline-flex float-right text-right align-items-center">
+								<% if(user) { %>
+								<a class="author-avatar" href="/author/<%= user.username %>">
+									<div class="u-relative u-inlineBlock u-flex0">
+										<img
+											data-src="<%= user.profilePicture %>"
+											class="avatar-image avatar-image--smaller blur-up lazyload"
+											data-toggle="tooltip"
+											data-placement="bottom"
+											title="<%= user.username %>"
+											data-original-title="My Profile"
+										/>
+										<div
+											class="avatar-halo u-absolute u-textColorGreenNormal svgIcon"
+											style="width: calc(100% + 10px); height: calc(100% + 10px); top:-5px; left:-5px"
+										>
+											<svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+												<path
+													d="M5.53538374,19.9430227 C11.180401,8.78497536 22.6271155,1.6 35.3571429,1.6 C48.0871702,1.6 59.5338847,8.78497536 65.178902,19.9430227 L66.2496695,19.401306 C60.4023065,7.84329843 48.5440457,0.4 35.3571429,0.4 C22.17024,0.4 10.3119792,7.84329843 4.46461626,19.401306 L5.53538374,19.9430227 Z"
+												></path>
+												<path
+													d="M65.178902,49.9077131 C59.5338847,61.0657604 48.0871702,68.2507358 35.3571429,68.2507358 C22.6271155,68.2507358 11.180401,61.0657604 5.53538374,49.9077131 L4.46461626,50.4494298 C10.3119792,62.0074373 22.17024,69.4507358 35.3571429,69.4507358 C48.5440457,69.4507358 60.4023065,62.0074373 66.2496695,50.4494298 L65.178902,49.9077131 Z"
+												></path>
+											</svg>
+										</div></div
+								></a>
+								<% }else{ %>
+									<a href="/sign-up" class="author-avatar"><i class="fa fa-user"></i> Sign up</a>
+								<a href="/login" class="author-avatar"><i class="fa fa-sign-in"></i> Login</a>
+								<% } %>
+							</div>
+							<form action="/search" method="get" class="search-form d-lg-flex float-right">
+								<a href="javascript:void(0)" class="searh-toggle">
+									<i class="icon-search"></i> Search...
+								</a>
+								<input type="text" class="search_field" placeholder="" value="" name="q" />
+							</form>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<nav id="main-menu" class="stick d-lg-block d-none">
+					<div class="container">
+						<div class="menu-primary">
+							<ul>
+								<% for(let item of mainMenu) { %>
+									<li class=""><a href="<%= item.link %>"><%= item.name.charAt(0).toUpperCase() + item.name.substring(1) %></a></li>
+								<% } %>
+								<% if(user) { %>
+									<% if(user.roleId == 'admin') { %>
+										<li class="menu-item-has-children"><a href="/dashboard/index"><%= user.username %></a>
+											<ul class="sub-menu">
+												<li><a href="/dashboard/index">Control Panel</a></li>
+												<li><a href="/author/<%= user.username%>">Profile</a></li>
+												<li><a href="/log-out">Logout</a></li>
+											</ul>
+										</li>
+									<% } else { %>
+									<li class="menu-item-has-children"><a href="/user/dashboard">Dashboard</a>
+										<ul class="sub-menu">
+											<li><a href="/user/dashboard">Control Panel</a></li>
+											<li><a href="/author/<%= user.username%>">Profile</a></li>
+											<li><a href="/log-out">Logout</a></li>
+										</ul>
+									</li>
+									<% } %>
+								<% } %>
+							</ul>
+							<span></span>
+						</div>
+					</div>
+				</nav>
+			</header>

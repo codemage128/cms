@@ -1,0 +1,206 @@
+<%- include ./partials/header %>
+<style>
+    @import 'https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&subset=latin-ext';
+
+    .profile-image {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .15) !important;
+        border: 2px solid transparent !important;
+        object-fit: cover;
+    }
+
+    .small-box {
+        border-radius: 2px;
+        position: relative;
+        display: block;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .small-box .inner {
+        position: relative;
+        color: #fff !important;
+        padding: 20px;
+    }
+
+    .small-box h3 {
+        font-size: 38px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        white-space: nowrap;
+        padding: 0;
+        z-index: 4;
+        color: #fff;
+    }
+
+    .small-box .inner a {
+        color: #fff !important;
+    }
+
+    .small-box p {
+        z-index: 5;
+        font-size: 15px;
+    }
+
+    .bg-purple {
+        background-color: #605ca8 !important;
+    }
+
+    .bg-success {
+        background-color: #19a185 !important;
+    }
+
+    .bg-danger {
+        background-color: #DE524A !important;
+    }
+
+    .bg-warning {
+        background-color: #f1b740 !important;
+    }
+
+    .bg-gradient-primary {
+        color: #fff !important;
+        background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+    }
+
+    .small-box .icon {
+        top: 0;
+        right: 20px;
+        z-index: 0;
+        font-size: 60px;
+        color: rgba(0, 0, 0, 0.10);
+        transition: all .3s linear;
+        position: absolute;
+    }
+
+    .small-box .icon a {
+        color: rgba(0, 0, 0, 0.10) !important;
+    }
+
+    .small-box:hover .icon a {
+        transform: scale(1.4);
+    }
+
+    .chartJ {
+        border-bottom: solid 2px #17a2b8 !important;
+    }
+
+    .headline {
+        border-bottom: 1px solid #e4e4e4;
+        display: block;
+        padding: 20px 30px;
+        border-bottom: 1px solid #e4e4e4;
+        position: relative;
+    }
+
+    .chart {
+        padding: 30px 20px 17px 18px;
+    }
+</style>
+<%- include ./partials/sidebar %>
+
+<!-- Content Body Start -->
+<div class="content-body">
+
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-12 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Dashboard <span>/ <%= siteTitle %></span></h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+
+    <!-- Top Report Wrap Start -->
+    <div class="row">
+        <!-- Top Report Start -->
+        <div class="col-lg-6 col-md-6  col-12 mb-30">
+
+            <div class="small-box bg-success shadow-sm">
+                <div class="inner">
+                    <h3 class="increase-count" data-count="<%=totalPost%>"><%= totalPost %></h3>
+                    <a href="/dashboard/all-posts">
+                        <p><%= totalPost < 2 ? 'Post' : 'Posts' %></p>
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="/dashboard/all-posts">
+                        <i class="fa fa-file"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Top Report End -->
+
+        <!-- Top Report Start -->
+        <div class="col-lg-6 col-md-6  col-12 mb-30">
+            <div class="small-box bg-purple shadow-sm">
+                <div class="inner">
+                    <h3 class="increase-count"><%= pendingPost %></h3>
+                    <a href="/dashboard/all-posts">
+                        <p><%= pendingPost < 2 ? 'Inactive Post' : 'Inactive Posts' %></p>
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="/dashboard/all-posts">
+                        <i class="fa fa-low-vision"></i>
+                    </a>
+                </div>
+            </div>
+        </div><!-- Top Report End -->
+
+    </div><!-- Top Report Wrap End -->
+
+    
+
+<!-- Footer Section Start -->
+<div class="footer-section" style="margin-top: 150px;">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+</div>
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+
+<!-- Plugins & Activation JS For Only This Page -->
+
+<!--Moment-->
+<script src="/assets/js/plugins/moment/moment.min.js"></script>
+
+<!--Daterange Picker-->
+<script src="/assets/js/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/assets/js/plugins/daterangepicker/daterangepicker.active.js"></script>
+
+<!--Echarts-->
+
+
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+
+</body>
+
+</html>

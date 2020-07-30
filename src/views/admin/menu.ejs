@@ -1,0 +1,538 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+  /*========== Start Nestable List  ==========*/
+  .dd-list {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dd-list .dd-list {
+    padding-left: 30px;
+  }
+
+  .dd-collapsed .dd-list {
+    display: none;
+  }
+
+  .dd-item,
+  .dd-empty,
+  .dd-placeholder {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    min-height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .dd-handle {
+    display: block;
+    text-decoration: none;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 42px !important;
+    margin: 10px 0;
+    color: rgba(34, 34, 34, 0.7);
+    border: 1px solid rgba(34, 34, 34, 0.1);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    background: #fff;
+    cursor: all-scroll;
+  }
+
+  .dd-handle span {
+    line-height: inherit;
+    padding: 10px 15px;
+    display: block;
+    background: rgba(34, 34, 34, 0.02);
+  }
+
+  .dd.tb-nestable.tb-style2 .dd-handle {
+    color: #007aff;
+    border: 1px solid rgba(0, 122, 255, 0.6);
+    background: #fff;
+  }
+
+  .dd.tb-nestable.tb-style2 .dd-handle span {
+    background: rgba(0, 122, 255, 0.1);
+  }
+
+  .dd.tb-nestable.tb-style2 .tb-nested-dropdown {
+    border-color: rgba(0, 122, 255, 0.6);
+  }
+
+  .dd-item>button {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    width: 16px;
+    height: 42px;
+    margin: 5px 0;
+    padding: 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    font-size: 16px;
+    margin-right: 3px;
+    margin-left: 12px;
+    padding-top: 1px;
+    color: #b5b5b5;
+    display: none;
+  }
+
+  .dd-item>button:before {
+    content: '+';
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    text-indent: 0;
+  }
+
+  .dd-item>button[data-action="collapse"]:before {
+    content: '-';
+  }
+
+  .dd-placeholder,
+  .dd-empty {
+    margin: 5px 0;
+    padding: 0;
+    min-height: 30px;
+    border: 2px dashed rgba(34, 34, 34, 0.1);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 4px;
+  }
+
+  .dd-empty {
+    border: 2px dashed rgba(34, 34, 34, 0.1);
+    min-height: 100px;
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+  }
+
+  .dd-dragel {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .dd-dragel>.dd-item .dd-handle {
+    margin-top: 0;
+  }
+
+  .tb-nested-dropdown {
+    padding: 15px;
+    padding-top: 22px;
+    padding-bottom: 5px;
+    border: 1px solid rgba(34, 34, 34, 0.1);
+    margin-top: -12px;
+    border-top: 0;
+    border-radius: 0 0 4px 4px;
+    display: none;
+  }
+
+  .tb-nested-dropdown-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .tb-nested-dropdown-row .tb-nested-col-1 {
+    width: 100%;
+    padding: 0 7px;
+    margin-bottom: 15px;
+  }
+
+  .tb-nested-dropdown-row .tb-nested-col-2 {
+    width: 50%;
+    padding: 0 7px;
+    margin-bottom: 15px;
+  }
+
+  .tb-nested-dropdown-btn-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .tb-nested-dropdown-btn-group .btn:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  .tb-nested-dropdown-btn {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    color: #b5b5b5;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 11px 8px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+  .tb-nested-dropdown-btn:focus {
+    outline: none;
+  }
+
+  .tb-nested-dropdown-btn:hover {
+    color: rgba(34, 34, 34, 0.7);
+  }
+
+  .tb-nested-dropdown-btn.tb-active {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  /*========== End Nestable List  ==========*/
+  body {
+    background: #f8f9fa !important;
+  }
+
+  .format {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    display: block;
+  }
+
+  input[type=checkbox] {
+    border: 1px solid #b4b9be;
+    background: #fff;
+    color: #555;
+    clear: none;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    height: 16px;
+    margin: -4px 4px 0 0;
+    outline: 0;
+    padding: 0 !important;
+    text-align: center;
+    vertical-align: middle;
+    width: 16px;
+    min-width: 16px;
+    -webkit-appearance: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: 0.05s border-color ease-in-out;
+  }
+
+  input[type=checkbox]:checked:before {
+    margin: 1px 0 0 -1px;
+    color: #1e8cbe;
+    content: "";
+    font: normal normal normal 13px/1 FontAwesome;
+  }
+
+  .list-group-item {
+    background: #fff;
+    border-radius: 0 !important;
+  }
+
+  .form-group {
+    margin-top: 20px;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+  }
+
+  input,
+  select,
+  textarea {
+    border: 1px solid rgba(34, 34, 34, 0.1);
+    font-size: 14px;
+    line-height: 1.6em;
+    padding: 6px 15px;
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background-color: #fff;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: rgba(34, 34, 34, 0.4);
+  }
+
+  .swal2-container {
+    z-index: 9999;
+  }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+  <!-- Page Headings Start -->
+  <div class="row justify-content-between align-items-center mb-10">
+
+    <!-- Page Heading Start -->
+    <div class="col-md-8 col-lg-auto mb-20">
+      <div class="page-heading">
+        <h3>Menu</h3>
+      </div>
+    </div><!-- Page Heading End -->
+
+  </div><!-- Page Headings End -->
+  <%- include ../partials/msg %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card bg-white shadow-sm">
+        <div class="card-header">
+          <div class="card-title"><b>Add a new menu</b></div>
+        </div>
+        <div class="card-body">
+          <form action="/menu/create" method="POST">
+            <div class="form-group">
+              <label for=""><b>Title</b></label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <hr>
+            <div class="form-group mt-3">
+              <label for=""><b>Type</b></label>
+              <select name="type" id="" class="form-control" required>
+                <option selected="selected" disabled="disabled">Choose</option>
+                <option value="link">Link</option>
+                <option value="page">Page</option>
+                <option value="category">Category</option>
+                <option value="tag">Tag</option>
+                <option value="author">Author</option>
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <button class="btn btn-primary">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <form action="/menu/edit" method="POST">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="dd tb-nestable tb-style1">
+              <% if(menu == "") { %>
+                <div class="alert alert-primary">Menu is Empty, pls create a menu</div>
+                <% }else { %>
+                  <div class="alert alert-primary">Note: Always Save anytime you delete a menu</div>
+                  <% } %>
+              <ul class="dd-list  ui-sortable" id="sortable">
+                <% for(let item of menu) { %>
+                <li class="dd-item user-state-default" data-id="<%= item._id %>">
+                  <input type="hidden" name="menuId" value="<%= item._id %>">
+                  <input type="hidden" name="item[<%= item._id %>][menuId]" value="<%= item._id %>">
+                  <input type="hidden" name="item[<%= item._id %>][position]" id="item[<%= item._id %>][position]" <% if(item.position) { %> value="<%= item.position %>" <%} %>>
+                  <input type="hidden" name="item[<%= item._id %>][type]" value="<%= item.type %>">
+                  <div class="dd-handle"><span><b><i class="move icofont-drag ui-sortable-handle mr-2"
+                          data-toggle="tooltip" data-placement="left" title="" data-original-title="Move"></i>
+                        <%= item.name %></b></span></div>
+                  <div class="tb-nested-dropdown-wrap">
+                    <button class="tb-nested-dropdown-btn" type="button"><i class="fa fa-arrow-down"></i></button>
+                    <div class="tb-nested-dropdown" style="display: none;">
+                      <div class="tb-nested-dropdown-row">
+                        <div class="tb-nested-col-1">
+                          <div class="tb-form-field">
+                            <% if(item.type == 'category') { %>
+                            <select name="item[<%= item._id %>][link]" required>
+                              <option selected="selected" value="<%= item.link %>">
+                                <%= item.link %>
+                              </option>
+                              <% for(let i of adminCat) { %>
+                              <option value="/category/<%= i.slug %>"><%= i.name %></option>
+                              <% } %>
+                            </select>
+                            <% } %>
+
+                            <% if(item.type == 'page') { %>
+                            <select name="item[<%= item._id %>][link]" required>
+                              <option selected="selected" value="<%= item.link %>"><%= item.link %></option>
+                              <% for(let i of adminPage) { %>
+                              <option value="/pages/<%= i.slug %>"><%= i.name %></option>
+                              <% } %>
+                            </select>
+                            <% } %>
+
+                            <% if(item.type == 'tag') { %>
+                            <select name="item[<%= item._id %>][link]" required>
+                                <option selected="selected" value="<%= item.link %>"><%= item.link %></option>
+                              <% for(let i of adminTag) { %>
+                              <option value="/tags/<%= i.slug %>"><%= i.name %></option>
+                              <% } %>
+                            </select>
+                            <% } %>
+
+                            <% if(item.type == 'author') { %>
+                            <select name="item[<%= item._id %>][link]" required>
+                                <option selected="selected" value="<%= item.link %>"><%= item.link %></option>
+                              <% for(let i of adminAuthor) { %>
+                              <option value="/author/<%= i.username %>"><%= i.firstName %> <%= i.lastName %></option>
+                              <% } %>
+                            </select>
+                            <% } %>
+                          </div>
+                        </div>
+                        <% if(item.type == 'link') { %>
+                        <div class="tb-nested-col-1">
+                          <div class="tb-form-field">
+                            <input type="text" placeholder="Link" name="item[<%= item._id %>][link]" value="<%= item.link %>" required>
+                          </div>
+                        </div>
+                        <% } %>
+                        <div class="tb-nested-col-1">
+                          <div class="tb-form-field">
+                            <input type="text" placeholder="Title Attribute" name="item[<%= item._id %>][name]" value="<%= item.name %>" required>
+                          </div>
+                        </div>
+                        <div class="tb-nested-col-1">
+                          <div class="tb-nested-dropdown-btn-group">
+                            <button type="button" class="tb-nosted-delete btn btn-outline-danger btn-sm"
+                              data-id="<%= item._id %>">Delete</button>
+                            <button type="button"
+                              class="tb-nosted-cancel btn btn-outline-primary btn-sm">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <% } %>
+              </ul>
+            </div>
+            <div class="form-group mt-3">
+              <button class="btn btn-info">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+  <div class="container-fluid">
+
+    <div class="footer-copyright text-center">
+      <p class="text-body-light">
+        <script>document.write(new Date().getFullYear())</script> &copy; <a href="<%= siteLink %>"><%= siteTitle %></a>
+      </p>
+    </div>
+
+  </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script src="/js/animate.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+<script>
+
+  $("#sortable").sortable({
+    //placeholder: "ui-state-highlight",
+    handle: "i.move",
+    items: "> li",
+    cursor: 'move',
+    opacity: 0.6,
+    update: function (event, ui) {
+      widgetPositionsCorrect()
+    }
+  });
+
+  function widgetPositionsCorrect() {
+    $('#sortable > li').each(function (index, element) {
+      $(this).find('input[id="item[' + $(this).attr('data-id') + '][position]"]').val(index + 1);
+    });
+  }
+
+  $('.tb-nested-dropdown-btn').on('click', function () {
+    $(this).toggleClass('tb-active').siblings('.tb-nested-dropdown').slideToggle();
+  });
+  $('.tb-nosted-cancel').on('click', function () {
+    $(this).parents('.tb-nested-dropdown').slideUp();
+  })
+  $('.tb-nosted-delete').on('click', function () {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        $(this).parents('.tb-nested-dropdown-wrap').parent('.dd-item').remove();
+        widgetPositionsCorrect()
+        let id = $(this).parents('.tb-nested-dropdown-wrap').parent('.dd-item').attr('data-id');
+        $.ajax({
+          url: '/menu/delete',
+          method: 'POST',
+          data: { id: id }
+        }).then(data => {
+          console.log(data)
+        }).catch(e => {
+          Swal.fire(
+            'Error!',
+            'Menu was not deleted, pls check your internet connectio .',
+            'error'
+          )
+        })
+      }
+    })
+
+  })
+
+</script>
+
+</body>
+
+</html>

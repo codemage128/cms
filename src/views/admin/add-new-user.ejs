@@ -1,0 +1,228 @@
+<%- include ./partials/header %>
+<link rel="stylesheet" href="/icofont/icofont.min.css">
+<style>
+    body {
+        background: #f8f9fa !important;
+    }
+
+    .format {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        display: block;
+    }
+
+    .form-control {
+        padding: 5px 11px !important;
+        border-radius: 0 !important;
+    }
+
+    input[type=checkbox] {
+        border: 1px solid #b4b9be;
+        background: #fff;
+        color: #555;
+        clear: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        height: 16px;
+        margin: -4px 4px 0 0;
+        outline: 0;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        width: 16px;
+        min-width: 16px;
+        -webkit-appearance: none;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: 0.05s border-color ease-in-out;
+    }
+
+    input[type=checkbox]:checked:before {
+        margin: 1px 0 0 -1px;
+        color: #1e8cbe;
+        content: "";
+        font: normal normal normal 13px/1 FontAwesome;
+    }
+
+    .btn-bsa {
+        background: #acbb16;
+        color: #fff;
+        transition: all ease-in-out .3s;
+    }
+
+    .btn-bsa:hover {
+        background: #000;
+        color: #fff;
+    }
+    .card{
+        border: 0 !important;
+        border-radius: 0 !important;
+    }
+</style>
+<%- include ./partials/sidebar %>
+<!-- Content Body Start -->
+<div class="content-body">
+    <!-- Page Headings Start -->
+    <div class="row justify-content-between align-items-center mb-10">
+
+        <!-- Page Heading Start -->
+        <div class="col-md-8 col-lg-auto mb-20">
+            <div class="page-heading">
+                <h3>Add new User:</h3>
+            </div>
+        </div><!-- Page Heading End -->
+
+    </div><!-- Page Headings End -->
+    <%- include ../partials/msg %>
+
+    <div class="row">
+        <div class="col-md-9">
+            <form action="/user/create" method="POST">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-header">
+                        <b>User Info</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for=""><b>First Name</b></label>
+                                    <input type="text" name="firstName" id="title" placeholder="First Name"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for=""><b>Last Name</b></label>
+                                    <input type="text" name="lastName" id="title" placeholder="Last Name"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for=""><b>Email*</b></label>
+                                    <input type="text" name="email" id="email" placeholder="Email" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for=""><b>Username*</b></label>
+                                    <input type="text" name="username" id="username" placeholder="Username"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="form-group">
+                                    <label for="">Password*</label>
+                                    <input type="password" name="password" id="" class="form-control" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label for="">Role*</label>
+                                        <select name="roleId" id="" class="form-control">
+                                            <option value="user">User</option>
+                                            <option value="user">Author</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="col-12 mt-4">
+                                <div class="form-group">
+                                    <label for=""><b>About user</b></label>
+                                    <textarea name="about" id="about" cols="30" rows="10"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <b>Social Accounts</b>
+                            </div>
+                            <div class="col-md-6 col-12 mb-20 mt-4">
+                                <label for=""><b>Facebook</b></label>
+                                <input type="text" name="social.facebook" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20 mt-4">
+                                <label for=""><b>Twitter</b></label>
+                                <input type="text" name="social.twitter" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label for=""><b>Instagram</b></label>
+                                <input type="text" name="social.instagram" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label for=""><b>Pinterest</b></label>
+                                <input type="text" name="social.pinterest" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button class="btn btn-bsa btn-sm">Add New User</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- Content Body End -->
+
+<!-- Footer Section Start -->
+<div class="footer-section">
+    <div class="container-fluid">
+
+        <div class="footer-copyright text-center">
+            <p class="text-body-light">
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="<%= siteLink %>"><%= siteTitle %></a></p>
+        </div>
+
+    </div>
+</div><!-- Footer Section End -->
+
+<!-- JS
+============================================ -->
+
+<!-- Global Vendor, plugins & Activation JS -->
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<!--Plugins JS-->
+<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/plugins/tippy4.min.js.js"></script>
+<script src="/assets/js/plugins/nice-select/jquery.nice-select.min.js"></script>
+<!--Main JS-->
+<script src="/assets/js/main.js"></script>
+<script>
+    $('select').niceSelect();
+    $(document).ready(function () {
+        $("[href]").each(function () {
+            if (this.href == window.location.href) {
+                $(this).parent().addClass("active");
+            }
+        });
+    });
+
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgThumb').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    $('#imgThumb').on('click', e => {
+        $('#imgFile').click();
+    })
+
+    $("#imgFile").on('change', function () {
+        readURL(this);
+    });
+</script>
+</body>
+
+</html>

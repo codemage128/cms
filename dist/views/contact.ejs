@@ -1,0 +1,93 @@
+<%- include('partials/header') %>
+<%- include('partials/msg') %>
+
+<main id="content">
+    <div class="container">
+        <!--Begin Page Header-->
+        <div class="row">
+            <div class="col-12 archive-header text-center pt-3 pb-3 mb-5">
+                <h1 class="mb-3">Contact Us</h1>
+                <p class="archive-intro">We have a dedicated support center for all of your support needs. We usually
+                    get back to you within 12-24 hours.</p>
+            </div>
+        </div>
+
+        <!--End Page Header-->
+        <article class="mb-5">
+            <div class="row">
+                <% if(mainSettings.contactInfo != undefined) { %>
+                <div class="col-md-6">
+                    <h4 class="spanborder">
+                        <span>Contact details</span>
+                    </h4>
+                    <p><%= mainSettings.contactInfo.otherInfo %></p>
+                    <div class="sidebar-widget widget-about">
+                        <p><i class="icon-map"></i> <%= mainSettings.contactInfo.address %></p>
+                        <p><i class="icon-paper-plane"></i> <a href="mailto:<%= siteEmail %>"><%= siteEmail %></a></p>
+                        <p><i class="icon-phone"></i> <%= mainSettings.contactInfo.phoneNumber %></p>
+                    </div>
+                </div>
+                <% } %>
+                <div class="col-md-6">
+                    <h4 class="spanborder">
+                        <span>Get in touch</span>
+                    </h4>
+                    <form action="/contact" class="contact" method="POST">
+                        <div class="form-contact">
+                            <p><input type="text" name="fullname" placeholder="Your Name" id="fullname" required></p>
+                            <p><input type="email" name="email" placeholder="Your Mail" id="email" required></p>
+                            <p><input type="number" name="number" placeholder="Your Phone Number" id="number"></p>
+                            <p>
+                                <select name="help" id="help">
+                                    <option selected="selected" disabled="disabled">How can we help you?</option>
+                                    <option>Feedback</option>
+                                    <option>Suggestion</option>
+                                    <option>Enquiry</option>
+                                    <option>Others</option>
+                                </select>
+                            </p>
+                            <p><textarea name="message" cols="40" rows="10" placeholder="Your Message" id="message"
+                                    required></textarea></p>
+                            <p><input type="submit" value="send message"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </article>
+        <!--entry-content-->
+    </div>
+    <!--container-->
+</main>
+<%- include('partials/footer') %>
+<script>
+    const contact = document.querySelector('.contact');
+    contact.addEventListener('submit', e => {
+        e.preventDefault()
+        let email = document.querySelector('#email').value;
+        let fullname = document.querySelector('#fullname').value;
+        let number = document.querySelector('#number').value;
+        let help = document.querySelector('#help').value;
+        let message = document.querySelector('#message').value
+        const data = {
+            email: email,
+            fullname: fullname,
+            number: number,
+            help: help,
+            message: message
+        }
+
+        fetch('/contact', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => response.text())
+            .then(data => {
+                contact.reset();
+                swal('Success', data, 'success');
+            }).catch(err => {
+                swal('Oops', 'An error occured, pls check your internet connection and try again', 'success');
+            })
+    })
+</script>

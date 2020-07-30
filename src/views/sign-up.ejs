@@ -1,0 +1,224 @@
+<%- include ./partials/header %>
+<style>
+	.login-container {
+		width: 360px;
+		margin: 0 auto;
+	}
+
+	@media screen and (max-width: 768px) {
+		.login-container,
+		.register-box {
+			width: 95%;
+			margin-top: 20px;
+		}
+	}
+
+	.login-box-body,
+	.register-box-body {
+		background: #fff;
+		padding: 20px;
+		border-top: 0;
+		color: #666;
+	}
+
+	.btn-social-facebook {
+		background-color: #4267b2;
+		transition: ease-in-out 0.5s;
+	}
+
+	.btn-social {
+		width: 100%;
+		height: 42px;
+		line-height: 42px;
+		padding: 0;
+		display: block;
+		position: relative;
+		color: #fff !important;
+		font-size: 14px !important;
+		font-weight: 400;
+		outline: 0 !important;
+		box-shadow: none !important;
+		border-radius: 0.3rem;
+		text-align: left;
+		margin-bottom: 5px;
+	}
+
+	.btn-social:hover {
+		color: #fff !important;
+	}
+
+	.btn-social:focus {
+		color: #fff !important;
+	}
+
+	.btn-social i {
+		width: 50px;
+		display: inline-block;
+		text-align: center;
+		font-size: 20px;
+		line-height: 20px;
+		margin-right: 30px;
+		border-right: 1px solid rgba(0, 0, 0, 0.15);
+	}
+
+	.btn-social-facebook:hover {
+		background-color: #3459a3;
+	}
+
+	.btn-social-google {
+		background-color: #df4a32;
+		transition: ease-in-out 0.5s;
+	}
+
+	.btn-social-google:hover {
+		background-color: #c9412b;
+	}
+
+	.btn-social-vk {
+		background-color: #4c75a3;
+		transition: ease-in-out 0.5s;
+	}
+
+	.btn-social-vk:hover {
+		background-color: #39679b;
+	}
+
+	.btn-social-twitter {
+		background-color: #55acee !important;
+		transition: ease-in-out 0.5s;
+	}
+
+	.btn-social-twitter:hover {
+		background-color: #2795e9 !important;
+	}
+
+	p.separator {
+		position: relative;
+		margin: 1em 0;
+	}
+
+	p.separator span {
+		background-color: #fff;
+		padding: 0 1em;
+		position: relative;
+		z-index: 1;
+		font-style: italic;
+	}
+
+	p.separator:after {
+		content: '';
+		width: 100%;
+		height: 1px;
+		background-color: #e6e6e6;
+		position: absolute;
+		top: 50%;
+		left: 0;
+	}
+
+	p.separator:before {
+		content: '';
+		width: 100%;
+		height: 1px;
+		background-color: #e6e6e6;
+		position: absolute;
+		top: 50%;
+		right: 0;
+	}
+</style>
+<div class="login-container bg-white">
+	<div class="container py-5 m-auto text-center">
+		<div class="row">
+			<div class="col-12 shadow text-center text-md-left login-box-body">
+				<div class="newsletter-form mt-4 bg-white mb-4">
+					<%- include('partials/msg') %> <% if(mainSettings.registrationSystem == true) { %>
+					<form action="/sign-up" method="POST" class="newsletterForm">
+						<p
+							class="widget-title"
+							style="margin: 0;text-align: center;padding: 0 20px 20px 20px; font-weight: 500;"
+						>
+							<b>Sign Up</b>
+						</p>
+						<div class="form-group row">
+							<% if(mainSettings.facebookLogin == true) { %>
+							<div class="col-12">
+								<a href="/auth/facebook" class="btn-social btn-social-modal btn-social-facebook">
+									<i class="icon-facebook"></i>Connect with Facebook</a
+								>
+							</div>
+							<% } %> <% if(mainSettings.googleLogin == true) { %>
+							<div class="col-12">
+								<a href="/auth/google" class="btn-social btn-social-modal btn-social-google">
+									<i class="icon-google"></i>&nbsp;Connect with Google</a
+								>
+							</div>
+							<% } %> <% if(mainSettings.twitterLogin == true) { %>
+							<div class="col-12">
+								<a href="/auth/twitter" class="btn-social btn-social-modal btn-social-twitter">
+									<i class="icon-twitter"></i>Connect with Twitter</a
+								>
+							</div>
+							<% } %> <% if(mainSettings.vkontakteLogin == true) { %>
+							<div class="col-12">
+								<a href="/auth/vkontakte" class="btn btn-social btn-social-modal btn-social-vk">
+									<i class="fa fa-vk"></i>&nbsp;Connect with VK</a
+								>
+							</div>
+							<% } %>
+						</div>
+						<p class="separator social-register-group text-center"><span>or</span></p>
+						<div class="form-group">
+							<input
+								type="text"
+								name="username"
+								id="email"
+								class="form-control"
+								placeholder="Username"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<input
+								type="email"
+								name="email"
+								id="email"
+								class="form-control"
+								placeholder="Email Address"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<input
+								type="password"
+								name="password"
+								class="form-control"
+								id="lname"
+								placeholder="Password"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<input
+								type="password"
+								name="cPassword"
+								class="form-control"
+								id="lname"
+								placeholder="Confirm Password"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-outline-info btn-block">Register</button>
+						</div>
+						<div class="form-group">
+							<small><a href="/login">Am a member, Login</a></small>
+						</div>
+					</form>
+					<% }else{ %>
+					<p>Registration System has been disabled</p>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include ./partials/footer %>

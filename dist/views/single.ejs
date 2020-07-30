@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <title><%= siteTitle %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= siteDescription %>">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="<%= article.file %>">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="<%= siteLink %>" />
+    <link rel="alternate" href="/" hreflang="en-US" />
+    <link rel="shortcut icon" href="<%= favicon %>" type="image/x-icon">
+    <script type="application/ld+json">
+            {
+              "@context": "http://schema.org",
+              "@type": "WebSite",
+              "name": "<%= siteTitle %>",
+              "url": "<%= siteLink %>",
+              "description": "<%= siteDescription %>",
+              "image": "<%= article.file %>"
+            }
+        </script>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= siteTitle %>" />
+    <meta property="og:url" content="<%= siteLink %>" />
+    <meta property="og:image" content="<%= article.file %>" />
+    <meta property="og:description" content="<%= siteDescription %>">
+    <meta property="og:site_name" content="<%= siteTitle %>" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@<%= siteTitle %>" />
+    <meta name="twitter:creator" content="@<%= siteTitle %>" />
+    <meta name="twitter:title" content="<%= siteTitle %>" />
+    <meta name="twitter:description" content="<%= siteDescription %>" />
+    <meta name="twitter:image" content="<%= article.file %>" />
+    <meta name="twitter:domain" content="<%= siteLink %>" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="<%= article.file %>">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Bootstrap, Font Awesome, Aminate, Owl Carausel, Normalize CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/css/owl.theme.default.min.css" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/widgets.css" rel="stylesheet">
+    <link href="/css/color-default.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+    <link href="/icofont/icofont.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/video.css" rel="stylesheet">
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=B612+Mono&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;display=swap" rel="stylesheet">
+
+    <!-- Icons fonts-->
+    <link href="/css/fontello.css" rel="stylesheet">
+    <%- mainSettings.htmlHeadCode %>
+</head>
+
+<body class="single">
+    <div class="top-scroll-bar"></div>
+    <!--Mobile navigation-->
+    <div class="sticky-header fixed d-lg-none d-md-block">
+        <div class="text-right">
+            <div class="container mobile-menu-fixed pr-5">
+                <% if(mainSettings.textAsIcon == true) { %>
+                <h1 class="logo-small navbar-brand">
+                    <a href="/" class="logo text-capitalize"><%= siteTitle %></a>
+                </h1>
+                <% }else { %>
+                <h1 class="logo-small navbar-brand">
+                    <a href="/" class="logo text-capitalize">
+                        <img data-src="<%= siteLogo %>" class="blur-up lazyload" alt="<%= siteTitle %>" />
+                    </a>
+                </h1>
+                <% } %> <% if(user) { %>
+                <a class="author-avatar" href="/author/<%= user.username %>">
+                    <div class="u-relative u-inlineBlock u-flex0">
+                        <img
+                            data-src="<%= user.profilePicture %>"
+                            class="avatar-image avatar-image--smaller blur-up lazyload"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title=""
+                            data-original-title="My Profile"
+                        />
+                        <div
+                            class="avatar-halo u-absolute u-textColorGreenNormal svgIcon"
+                            style="width: calc(100% + 10px); height: calc(100% + 10px); top:-5px; left:-5px"
+                        >
+                            <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5.53538374,19.9430227 C11.180401,8.78497536 22.6271155,1.6 35.3571429,1.6 C48.0871702,1.6 59.5338847,8.78497536 65.178902,19.9430227 L66.2496695,19.401306 C60.4023065,7.84329843 48.5440457,0.4 35.3571429,0.4 C22.17024,0.4 10.3119792,7.84329843 4.46461626,19.401306 L5.53538374,19.9430227 Z"
+                                ></path>
+                                <path
+                                    d="M65.178902,49.9077131 C59.5338847,61.0657604 48.0871702,68.2507358 35.3571429,68.2507358 C22.6271155,68.2507358 11.180401,61.0657604 5.53538374,49.9077131 L4.46461626,50.4494298 C10.3119792,62.0074373 22.17024,69.4507358 35.3571429,69.4507358 C48.5440457,69.4507358 60.4023065,62.0074373 66.2496695,50.4494298 L65.178902,49.9077131 Z"
+                                ></path>
+                            </svg>
+                        </div></div
+                ></a>
+                <% } %>
+
+                <a href="javascript:void(0)" class="menu-toggle-icon">
+                    <span class="lines"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mobi-menu">
+            <div class="mobi-menu__logo">
+                <h1 class="logo navbar-brand"><a href="/" class="logo text-capitalize">
+                    <% if(mainSettings.textAsIcon) { %>
+                        <%= siteTitle %>
+                    <% } else { %>
+                        <img data-src="<%= siteLogo %>" class="img-fluid blur-up lazyload">
+                    <% } %>
+                </a></h1>
+            </div>
+            <form action="/search" method="get" class="menu-search-form d-lg-flex">
+                <input type="text" class="search_field" placeholder="Search..." value="" name="q" />
+            </form>
+            <nav>
+                <ul>
+                <% for(let item of mainMenu) { %>
+                    <li class=""><a href="<%= item.link %>"><%= item.name.charAt(0).toUpperCase() + item.name.substring(1) %></a></li>
+                <% } %>
+                <% if(user) { %>
+                                <% if(user.roleId == 'admin') { %>
+                                    <li class=""><a href="/dashboard/index">Dashboard</a></li>
+                                <% } else { %>
+                                <li class=""><a href="/user/dashboard">Dashboard</a></li>
+                                <% } %>
+                            <% } else { %>
+                                <li class=""><a href="/sign-up">Sign up</a></li>
+                                <li class=""><a href="/login">Login</a></li>
+                                <% } %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!--Mobile navigation-->
+    <div id="wrapper" >
+        <header id="header" class="d-lg-block d-none">
+            <div class="container">
+                <div class="align-items-center w-100">
+                    <h1 class="logo float-left navbar-brand">
+                        <a href="/" class="logo">
+                            <% if(mainSettings.textAsIcon == true) { %> <%= siteTitle %> <% } else { %>
+                            <img data-src="<%= siteLogo %>" class="blur-up lazyload" alt="<%= siteTitle %>" />
+                            <%}%>
+                        </a>
+                    </h1>
+                    <div class="header-right float-right w-50">
+                        <div class="d-inline-flex float-right text-right align-items-center">
+                            <% if(user) { %>
+                            <a class="author-avatar" href="/author/<%= user.username %>">
+                                <div class="u-relative u-inlineBlock u-flex0">
+                                    <img
+                                        data-src="<%= user.profilePicture %>"
+                                        class="avatar-image avatar-image--smaller blur-up lazyload"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="<%= user.username %>"
+                                        data-original-title="My Profile"
+                                    />
+                                    <div
+                                        class="avatar-halo u-absolute u-textColorGreenNormal svgIcon"
+                                        style="width: calc(100% + 10px); height: calc(100% + 10px); top:-5px; left:-5px"
+                                    >
+                                        <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M5.53538374,19.9430227 C11.180401,8.78497536 22.6271155,1.6 35.3571429,1.6 C48.0871702,1.6 59.5338847,8.78497536 65.178902,19.9430227 L66.2496695,19.401306 C60.4023065,7.84329843 48.5440457,0.4 35.3571429,0.4 C22.17024,0.4 10.3119792,7.84329843 4.46461626,19.401306 L5.53538374,19.9430227 Z"
+                                            ></path>
+                                            <path
+                                                d="M65.178902,49.9077131 C59.5338847,61.0657604 48.0871702,68.2507358 35.3571429,68.2507358 C22.6271155,68.2507358 11.180401,61.0657604 5.53538374,49.9077131 L4.46461626,50.4494298 C10.3119792,62.0074373 22.17024,69.4507358 35.3571429,69.4507358 C48.5440457,69.4507358 60.4023065,62.0074373 66.2496695,50.4494298 L65.178902,49.9077131 Z"
+                                            ></path>
+                                        </svg>
+                                    </div></div
+                            ></a>
+                            <% }else{ %>
+                                <a href="/sign-up" class="author-avatar"><i class="fa fa-user"></i> Sign up</a>
+                            <a href="/login" class="author-avatar"><i class="fa fa-sign-in"></i> Login</a>
+                            <% } %>
+                        </div>
+                        <form action="/search" method="get" class="search-form d-lg-flex float-right">
+                            <a href="javascript:void(0)" class="searh-toggle">
+                                <i class="icon-search"></i> Search...
+                            </a>
+                            <input type="text" class="search_field" placeholder="" value="" name="q" />
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <nav id="main-menu" class="stick d-lg-block d-none">
+                <div class="container">
+                    <div class="menu-primary">
+                        <ul>
+                            <% for(let item of mainMenu) { %>
+                                <li class=""><a href="<%= item.link %>"><%= item.name.charAt(0).toUpperCase() + item.name.substring(1) %></a></li>
+                            <% } %>
+                            <% if(user) { %>
+                                <% if(user.roleId == 'admin') { %>
+                                    <li class="menu-item-has-children"><a href="/dashboard/index"><%= user.username %></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/dashboard/index">Control Panel</a></li>
+                                            <li><a href="/author/<%= user.username%>">Profile</a></li>
+                                            <li><a href="/log-out">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                <% } else { %>
+                                <li class="menu-item-has-children"><a href="/user/dashboard">Dashboard</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/user/dashboard">Control Panel</a></li>
+                                        <li><a href="/author/<%= user.username%>">Profile</a></li>
+                                        <li><a href="/log-out">Logout</a></li>
+                                    </ul>
+                                </li>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    <%- mainSettings.facebookCommentCode %>
+    <script>
+
+        function getmonth(data) {
+            switch (data) {
+                case 0:
+                    return 'Jan';
+                    break;
+                case 1:
+                    return 'Feb';
+                    break;
+                case 2:
+                    return 'March';
+                    break;
+                case 3:
+                    return 'Apr';
+                    break;
+                case 4:
+                    return 'May';
+                    break;
+                case 5:
+                    return 'Jun';
+                    break;
+                case 6:
+                    return 'Jul';
+                    break;
+                case 7:
+                    return 'Aug';
+                    break;
+                case 8:
+                    return 'Sep';
+                    break;
+                case 9:
+                    return 'Oct';
+                    break;
+                case 10:
+                    return 'Nov';
+                    break;
+                case 11:
+                    return 'Dec';
+                    break;
+                default: break;
+            }
+        };
+    </script>
+    <style>
+        .badge{
+            font-size: 100% !important;
+        }
+        .entry-main-content img {
+            max-width: 100% !important;
+            object-fit: cover !important;
+            height: auto !important;
+        }
+
+        iframe {
+            width: 100%;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        table {
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-collapse: collapse;
+            white-space: nowrap;
+            box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+            border: none;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        /* @media screen and (min-width: 435px){
+        .avatar{
+            height: 114px !important; 
+            width: 114px !important; 
+            object-fit: cover;
+        }
+    } */
+        @media screen and (max-width: 700px) {
+            .padd {
+                padding-left: 1.5rem !important;
+            }
+        }
+
+        .social-network {
+            float: right
+        }
+
+        .social-network a:hover,
+        .top-menu a:hover,
+        .searh-toggle:hover {
+            color: rgba(0, 0, 0, .7)
+        }
+
+        .social-network {
+            z-index: 2
+        }
+
+        footer .social-network {
+            margin-bottom: 1rem;
+            margin-top: -5px
+        }
+
+        .social-network a {
+            color: rgba(0, 0, 0, .54);
+            border-radius: 50%;
+            font-size: 12px;
+            margin-left: .2rem;
+            border: 1px solid rgba(0, 0, 0, .34);
+            width: 26px;
+            height: 26px;
+            line-height: 25px;
+            text-align: center;
+            padding: 0;
+            display: inline-block
+        }
+
+        .tags-wrap a {
+            background: rgba(0, 0, 0, .05);
+            border-radius: 3px;
+            font-size: .875rem;
+            padding: 6px 12px;
+            margin-right: 3px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+        a.nav-item.nav-link.active {
+        border-top: solid 2px #87be8f !important;
+        box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    }
+
+    a.nav-item.nav-link {
+        border-radius: 0;
+    }
+    </style>
+    <!-- single post start -->
+    <main id="content">
+        <div class="container">
+            <div class="entry-header">
+                <div class="mb-5">
+                    <%- include ./partials/msg %>
+                    <h1 class="m_b_2rem" style="font-weight: 500;">
+                        <%= article.title.charAt(0).toUpperCase() + article.title.substring(1) %>
+                    </h1>
+                    <div class="entry-meta align-items-center">
+                        <a class="author-avatar" href="/author/<%= article.postedBy.username %>">
+                            <div class="u-relative u-inlineBlock u-flex0"><img
+                                    data-src="<%= article.postedBy.profilePicture %>"
+                                    style="height: 48px !important; width: 48px !important;"
+                                    class="avatar-image avatar-image--smaller blur-up lazyload" data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="Go to the profile of <%= article.postedBy.firstName %> <%= article.postedBy.lastName %> ">
+                                <div class="avatar-halo u-absolute u-textColorGreenNormal svgIcon"
+                                    style="width: calc(100% + 10px); height: calc(100% + 10px); top:-5px; left:-5px">
+                                    <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5.53538374,19.9430227 C11.180401,8.78497536 22.6271155,1.6 35.3571429,1.6 C48.0871702,1.6 59.5338847,8.78497536 65.178902,19.9430227 L66.2496695,19.401306 C60.4023065,7.84329843 48.5440457,0.4 35.3571429,0.4 C22.17024,0.4 10.3119792,7.84329843 4.46461626,19.401306 L5.53538374,19.9430227 Z">
+                                        </path>
+                                        <path
+                                            d="M65.178902,49.9077131 C59.5338847,61.0657604 48.0871702,68.2507358 35.3571429,68.2507358 C22.6271155,68.2507358 11.180401,61.0657604 5.53538374,49.9077131 L4.46461626,50.4494298 C10.3119792,62.0074373 22.17024,69.4507358 35.3571429,69.4507358 C48.5440457,69.4507358 60.4023065,62.0074373 66.2496695,50.4494298 L65.178902,49.9077131 Z">
+                                        </path>
+                                    </svg></div>
+                            </div>
+                            <a href="/author/<%= article.postedBy.username %>"
+                                class="text-capitalize"><%= article.postedBy.firstName %>
+                                <%= article.postedBy.lastName %></a> in <a href="/category/<%= article.category.slug %>"
+                                class="text-capitalize"><%= article.category.name %></a><br>
+                            <span>
+                                <script>document.write(getmonth(parseInt('<%= article.createdAt.getMonth() %>')))</script>
+                                <%= article.createdAt.getDate() %></span>
+                            <span class="middotDivider"></span>
+                            <span class="readingTime"
+                                title="<%= time(article.short) %>"><%= time(article.short) %></span>
+                            <span class="svgIcon svgIcon--star">
+                                <svg class="svgIcon-use" width="15" height="15">
+                                    <path
+                                        d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span class="middotDivider"></span>
+                            <% if(mainSettings.showPostViewCount == true) { %>
+                            <span><%= article.views %> View<%= article.views <2 ? '' : 's' %></span>
+                            <% } %>
+                            <span class="middotDivider"></span>
+                            <% if(bookmark == true) { %>
+                                <span><a href="/bookmark/delete?bookmarkId=<%= bookmarkId %>"><i class="fa fa-bookmark" data-toggle="tooltip" title="Delete Story" style="cursor: pointer; font-size: 18px;"></i></a></span>
+                                <% } else { %>
+                                    <span><a href="/bookmark/create?articleId=<%= article._id %>"><i class="fa fa-bookmark-o" data-toggle="tooltip" title="Save Story" style="cursor: pointer; font-size: 18px;"></i></a></span>
+                                    <% } %>
+                            <span class="float-right">
+                                <% if(!user){ %>
+                                    <a href="/follow-user?followerId=<%= article.postedBy._id %>" data-toggle="tooltip" title="Follow User" data-placement="bottom"><span class="badge badge-outline-success">Follow</span></a>
+                                    <% } else {%>
+                                        <% if(user._id.toString() === article.postedBy._id.toString()) { %>
+    
+                                            <% } else { %>
+                                                <% if(user.following.indexOf(article.postedBy._id) > -1) { %>
+                                                    <a href="/unfollow-user?followerId=<%= article.postedBy._id %>" data-toggle="tooltip" title="Unfollow User" data-placement="bottom"><span class="badge badge-success">Following</span></a>
+                                                    <% } else { %>
+                                                        <a href="/follow-user?followerId=<%= article.postedBy._id %>" data-toggle="tooltip" title="Follow User" data-placement="bottom"><span class="badge badge-outline-success">Follow</span></a>
+                                                        <% } %>
+                                                <% } %>
+                                        
+                                        <% } %>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <!--end single header-->
+            <figure class="image zoom mb-5 text-center">
+                <img alt="<%= article.title %>" class="blur-up lazyload" data-src="<%= article.file %>" />
+            </figure>
+            <!--figure-->
+            <article class="entry-wraper mb-5">
+                <div class="entry-left-col">
+                    <div class="social-sticky">
+                        <a href="javascript:void(0);" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436');return false;"><i class="icon-facebook"></i></a>
+                        <a href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(location.href))"><i class="icon-twitter"></i></a>
+                        <a href="#"><i class="icon-linkedin"></i></a>
+                        <a href="#"><i class="icon-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="entry-main-content dropcap" style="overflow: hidden;">
+                    <% if(article.videoType == 'video') { %>
+                    <video id='my-video' class='blur-up video-js lazyload' playsinline controls preload='auto' width='640' height='264'
+                        data-setup='{}'>
+                        <source src='<%= article.videoFile %>' type='video/mp4'>
+                    </video>
+                    <% } %>
+
+                    <% if(article.videoType == 'youtube' && article.videoFile != undefined) { %>
+                    <div class="" id="my-video">
+                        <iframe class="blur-up lazyload" data-src="<%= article.videoFile %>" width="640" height="400" frameborder="0"
+                            allowtransparency
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <% } %>
+                    <%- article.body %>
+                </div>
+                <% if(article.postType == 'audio' && article.audioFile != undefined) { %>
+                    <div style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+                    <audio id="player" controls crossorigin playsinline>
+                    <source src="<%= article.audioFile %>" type="audio/mp3" />
+                </audio>
+                </div>
+                <% } %>
+                <div class="entry-bottom row" style="font-size: .875rem;">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="tags-wrap heading">
+                            <span class="tags">
+                                <% for(let item of article.tags) { %>
+                                <% if(article.tags[0] != "") { %>
+                                <a href="/tags/<%= item.toLowerCase() %>" class="mb-3" rel="tag"><%= item %></a>
+                                <% } %>
+                                <% } %>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 social-network text-center text-sm-right"
+                        style="margin: 1.5rem 0; color: #757575;">
+                        Share this post
+                        <a class="fb"
+                            href="https://www.facebook.com/sharer.php?u=<%= siteLink %>/post/<%= article.slug %>"
+                            title="Share on Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a class="tw"
+                            href="https://twitter.com/intent/tweet?source=<%= siteLink %>/post/<%= article.slug %>"
+                            target="_blank" title="Tweet"><i class="fa fa-twitter"></i></a>
+                        <a href="https://pinterest.com/pin/create/button/?url=<%= siteLink %>/post/<%= article.slug %>"
+                            target="_blank" title="Pin it"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <%if (mainSettings.showPostAuthor == true) { %>
+                <hr>
+                <div class="box box-author m_b_2rem">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="post-author row-flex">
+                                <div class="author-img">
+                                    <svg width="82" height="92" viewBox="0 0 82 92" class="fo ef mj mk ml mm ej">
+                                        <path
+                                            d="M1.58 26.29C8.86 11.67 23.78 1.65 41 1.65V.35C23.26.35 7.9 10.67.42 25.71l1.16.58zM41 1.65c17.22 0 32.14 10.02 39.42 24.64l1.16-.58C74.1 10.67 58.74.35 41 .35v1.3zm39.42 64.06C73.14 80.33 58.22 90.35 41 90.35v1.3c17.74 0 33.1-10.32 40.58-25.36l-1.16-.58zM41 90.35c-17.22 0-32.14-10.02-39.42-24.64l-1.16.58C7.9 81.33 23.26 91.65 41 91.65v-1.3z">
+                                        </path>
+                                    </svg>
+                                    <img alt="<%= article.postedBy.firstName %> <%= article.postedBy.lastName %>"
+                                        class="blur-up avatar lazyload" style="width: 200px;" data-src="<%= article.postedBy.profilePicture %>">
+                                </div>
+                                <div class="author-content">
+                                    <div class="top-author">
+                                        <small><span>WRITTEN BY</span></small>
+                                        <h5 class="heading-font"><a href="/author/<%= article.postedBy.username %>"
+                                                title="<%= article.postedBy.firstName %> <%= article.postedBy.lastName %>"
+                                                rel="author" class="text-capitalize"><%= article.postedBy.firstName %>
+                                                <%= article.postedBy.lastName %></a></h5>
+                                    </div>
+                                    <p class="d-none d-md-block"><%= article.postedBy.about %>.</p>
+                                    <% if(article.postedBy.social != undefined) { %>
+                                    <div class="content-social-author">
+                                        <a target="_blank" class="author-social"
+                                            href="https://<%= article.postedBy.social.facebook %>"><i
+                                                class="icofont-facebook"></i> </a>
+                                        <a target="_blank" class="author-social"
+                                            href="https://<%= article.postedBy.social.twitter %>"><i
+                                                class="icofont-twitter"></i> </a>
+                                        <a target="_blank" class="author-social"
+                                            href="https://<%= article.postedBy.social.instagram %>"> <i
+                                                class="icofont-instagram"></i> </a>
+                                        <a target="_blank" class="author-social"
+                                            href="https://<%= article.postedBy.social.pinterest %>"> <i
+                                                class="icofont-pinterest"></i> </a>
+                                    </div>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </article>
+            <!--entry-content-->
+
+            <!--Begin post related-->
+            <div class="related-posts mb-5">
+                <h4 class="spanborder text-center">
+                    <span>Maybe you are interested</span>
+                </h4>
+                <div class="row justify-content-between">
+                    <div class="divider-2"></div>
+                    <% for(let item of related) { %>
+                    <article class="col-md-4">
+                        <div class="mb-3 d-flex row">
+                            <figure class="col-md-5"><a href="/post/<%= item.slug %>"><img
+                                        alt="<%= item.title %>"
+                                        class="blur-up lazyload"
+                                        data-src="<%= item.file %>"
+                                        style="height: 128px; width: 100%; object-fit: cover;"></a></figure>
+                            <div class="entry-content col-md-7 pl-md-0">
+                                <h5 class="entry-title mb-3"><a
+                                        href="/post/<%= item.slug %>"><%= item.title.charAt(0).toUpperCase() + item.title.substring(1) %>
+                                    </a></h5>
+                                <div class="entry-meta align-items-center">
+                                    <a href="/author/<%= item.postedBy.username %>"><%= item.postedBy.firstName %>
+                                        <%= item.postedBy.lastName %></a> in <a
+                                        href="/category/<%= item.category.slug %>"
+                                        class="text-capitalize"><%= item.category.name %></a><br>
+                                    <span>
+                                        <script>document.write(getmonth(parseInt('<%= item.createdAt.getMonth() %>')))</script>
+                                        <%= item.createdAt.getDate() %></span>
+                                    <span class="middotDivider"></span>
+                                    <span class="readingTime" title="3 min read"><%= time(item.short) %></span>
+                                    <span class="svgIcon svgIcon--star">
+                                        <svg class="svgIcon-use" width="15" height="15">
+                                            <path
+                                                d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <% }%>
+                </div>
+            </div>
+            <!--End post related-->
+
+            <!--Begin Comment-->
+            
+            <% if(mainSettings.commentSystem == true) { %>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <button class="btn btn-outline-info btn-lg btn-block" id="showAll"><small>See responses
+                            (<%= article.comments.length %>)</small></button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="single-comment comments_wrap">
+            <nav class="mt-3">
+                        <div class="nav nav-tabs nav-fill shadow-sm" id="nav-tab" role="tablist">
+                            <% if(mainSettings.commentSystem == true) { %>
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true">
+                                Comments</a>
+                            <% } %>
+                            <% if(mainSettings.facebookComment == true) { %>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false">Facebook Comments</a>
+                            <% } %>
+                        </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <section id="comments">
+                    <div class="comments-inner clr">
+                        <ol class="commentlist">
+                            <% for(let item of article.comments) { %>
+                            <li id="li-comment-11" style="border-radius: 4px;
+     font-size: 13px;" class="p-3 mb-3 border-1">
+                                <article id="comment-11" class="comment even thread-even depth-1 clr">
+                                    <div class="comment-author vcard shadow-sm" style="border: solid 2px transparent;" data-toggle="tooltip" data-placement="bottom" title="<%= item.name %>">
+                                        <img style="width: 100%; object-fit: cover;"
+                                            alt="<%= item.name %>" class="avatar blur-up lazyload" data-src="<%= item.profilePicture %>">
+                                        </div>
+                                    <div class="comment-details clr ">
+
+                                        <h6 class="d-inline-block text-capitalize"> <%= item.name %> – </h6>
+                                        <span class="comment-date d-inline-block"><script>document.write(getmonth(parseInt('<%= item.createdAt.getMonth() %>')))</script>
+                                        <%= item.createdAt.getDate() %></span>
+
+                                        <div class="comment-content entry clr">
+                                            <p><%= item.comment.charAt(0).toUpperCase() + item.comment.substring(1) %>
+                                            </p>
+
+                                            <a rel="nofollow" class="comment-reply-link"
+                                                href="javascript:void(0);" onclick
+                                                data-commentid="<%= item._id %>" data-postid="<%= article._id %>" data-belowelement="comment-11"
+                                                data-respondelement="respond" aria-label="Reply to <%= item.name %>">Reply <i class="icofont-long-arrow-right"></i></a>
+                                        </div>
+                                        <ul class="children">
+                                            <% for(let reply of item.replies) { %>
+                                            <li id="li-comment-12" style="font-size: 13px;" class="mt-4">
+                                                <article id="comment-12" class="comment odd alt depth-2 clr">
+                                                    <div class="comment-author vcard">
+                                                        <img data-src="<%= reply.profilePicture %>" width="60" height="60"
+                                                            alt="<%= reply.name %>"
+                                                            class="avatar avatar-60 alignnone photo blur-up lazyload">
+                                                    </div>
+                                                    <div class="comment-details clr ">
+
+                                                        <h6 class="d-inline-block"> <%= reply.name %> – </h6>
+                                                        <% if(reply.createdAt != undefined) { %>
+                                                            <span class="comment-date d-inline-block"><script>document.write(getmonth(parseInt('<%= reply.createdAt.getMonth() %>')))</script>
+                                                            <%= reply.createdAt.getDate() %></span>
+                                                        <% } %>
+
+                                                        <div class="comment-content entry clr">
+                                                            <p><%= reply.reply %></p>
+                                                        </div>
+                                                    </div>          
+                                                </article>
+                                            </li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </li>
+                            <% } %>
+                        </ol>
+                        <div id="respond" class="comment-respond mt-5">
+                            <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
+                            <form action="/comment" method="POST" id="commentForm" class="commentForm">
+                                <input type="hidden" name="articleId" id="articleId" value="<%= article._id %>">
+                                <input type="hidden" name="slug" id="slug" value="<%= article.slug %>">
+                                <p class="comment-notes">
+                                    <span id="email-notes">Your email address will not be published.</span> Required
+                                    fields are marked <span class="required">*</span>
+                                </p>
+                                <p class="comment-form-comment">
+                                    <label for="comment">Comment</label>
+                                    <textarea id="comment" name="comment" id="comment" cols="45" rows="8"
+                                        maxlength="65525" required></textarea>
+                                </p>
+                                <div class="row">
+                                    <div class="comment-form-author col-sm-12 col-md-6">
+                                        <p>
+                                            <label for="author">Name*</label>
+                                            <input name="name" type="text" id="name" value="" size="30"
+                                                aria-required="true" required>
+                                        </p>
+                                    </div>
+                                    <div class="comment-form-email col-sm-12 col-md-6">
+                                        <p>
+                                            <label for="email">Email*</label>
+                                            <input id="email" name="email" type="email" id="email" value="" size="30"
+                                                aria-required="true" required>
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="form-submit">
+                                    <input name="submit" type="submit" id="submit"
+                                        class="submit btn btn-success btn-block" value="Post Comment">
+                                </p>
+                            </form>
+                        </div>
+                        <!-- #respond -->
+                    </div>
+                </section>
+                    </div>
+                    <% if(mainSettings.facebookComment == true) { %>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="fb-comments" data-href="" data-width=""
+                                data-numposts="5"></div>
+                        </div>
+                        <script>document.querySelector('.fb-comments').setAttribute('data-href', `${document.location.origin}`)</script>
+                        <% } %>
+                </div>
+            </div>
+            <% } %>
+            <!--End Comment-->
+        </div>
+        <!--container-->
+    </main>
+    <%- include ./partials/footer %>
+    <% if(article.postType == 'audio' && article.audioFile != undefined) { %>
+    <!-- <script src="/js/wavesurfer.min.js"></script> -->
+    <script src="/js/video.min.js"></script>
+    <script>
+    const audio = new Plyr('audio', {
+        download: true,
+        urls: {
+            download: '<%= article.audioFile %>',
+        }
+    });
+    </script>
+    <% } %>
+    <% if(article.videoType == 'video' && article.videoFile != undefined) { %>
+    <script>
+        const player = new Plyr('#my-video');
+    </script>
+    <% } %>
+    <script>
+        let n = `
+                            <form action="/newsletter" method="POST" class="newsletterForm bg-white m-3 mt-sm-5" style="color: rgba(0,0,0,0.8);border-radius: 4px;box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);">
+                                <div class="mb-5">
+                                <div class="row justify-content-between">
+                                <div class="col-md-2 d-none d-md-block">
+                                    <img class="blur-up lazyload" data-src="/img/newsbg.png">
+                                </div>
+                                    <div class="col-md-3 mb-2 mb-md-0 p-3 padd">
+                                        <h5 class="font-weight-bold secondfont mb-3 mt-0">Newsletter Subscription</h5>
+                                        <p class="small-text">Get the latest news right in your inbox. We never spam!</p>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="row pt-sm-4 pb-4 pr-4 padd">
+                                            <div class="col-md-6 mb-3">
+                                                <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="email" class="form-control" name="email" placeholder="Enter your e-mail address" required>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <button type="submit" class="btn btn-success btn-block">Subscribe</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                            `
+        if ('<%= mainSettings.newsletter %> == true') {
+            $('.entry-main-content p').last().prepend(n)
+        }
+        document.querySelector('.entry-main-content').querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'))
+        $('.single-comment').hide();
+        $('#showAll').click(e => {
+            $('.single-comment').fadeIn();
+            $('#showAll').hide();
+        })
+
+        const form = document.querySelector('#commentForm');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            let comment = document.querySelector('#comment').value;
+            let name = document.querySelector('#name').value;
+            let email = document.querySelector('#email').value;
+            let slug = document.querySelector('#slug').value;
+            let articleId = document.querySelector('#articleId').value;
+
+            const data = {
+                comment: comment,
+                name: name,
+                email: email,
+                slug: slug,
+                articleId: articleId,
+            };
+
+            fetch(form.getAttribute('action'), {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => response.text())
+                .then(data => {
+                    console.log(data)
+                    swal('Success', data, 'success');
+                    form.reset()
+                })
+                .catch(e => {
+                    swal('Oops', "There was an error processing that, pls check your internet connection and try again", 'error');
+                })
+        })
+        
+        $('.comment-reply-link').click(e => {
+            e.preventDefault();
+            $('.commentForm').attr('action', '/reply');
+            $('.commentForm').attr('id', ''); 
+        });
+    </script>
